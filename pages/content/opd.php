@@ -1,4 +1,13 @@
+<?php
+  include("config/dbConfig.php");
 
+  $db = new Database;
+  $db->connect();
+  $db->select('opd', 'id_opd,nama_opd,alamat_opd,kepala_opd,telepon_opd,email_opd');
+  $res = $db->getResult();
+?>
+
+<script type="text/javascript" src="src/js/opd.js"></script>
           <!-- page content -->
               <div class="right_col" role="main">
                 <div class="">
@@ -50,37 +59,28 @@
 
 
                             <tbody>
-                              <tr>
-                                <td>Dinas Komunikasi, Informatika dan Statistik</td>
-                                <td>Jl. Majapahit No.1 Lantai 3</td>
-                                <td>0361 431229</td>
-                                <td>I Dewa Made Agung, SE, M.Si</td>
-                                <td>kominfo@denpasarkota.go.id</td>
-                                <td>
-                                  <button class="btn btn-sm" data-toggle="modal" data-target="#edit-opd">
-                                    <i class="fa fa-edit"></i>
-                                  </button>
-                                  <button class="btn btn-sm">
-                                    <i class="fa fa-times"></i>
-                                  </button>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Dinas Perindustrian dan Perdagangan</td>
-                                <td>Jl. Majapahit No.1 Lantai 3</td>
-                                <td>0361 8495711</td>
-                                <td>Drs. I Wayan Gatra, M.Si</td>
-                                <td>perindag@denpasarkota.go.id</td>
-                                <td>
-                                  <button class="btn btn-sm" data-toggle="modal" data-target="#edit-opd">
-                                    <i class="fa fa-edit"></i>
-                                  </button>
-                                  <button class="btn btn-sm">
-                                    <i class="fa fa-times"></i>
-                                  </button>
-                                </td>
-                              </tr>
-                              </tbody>
+                            <?php
+                              foreach($res as $opd){
+                                echo '
+                                  <tr>
+                                  <td>'.$opd['nama_opd'].'</td>
+                                  <td>'.$opd['alamat_opd'].'</td>
+                                  <td>'.$opd['telepon_opd'].'</td>
+                                  <td>'.$opd['kepala_opd'].'</td>
+                                  <td>'.$opd['email_opd'].'</td>
+                                  <td>
+                                    <button class="btn btn-sm" onclick="getDetailOPD('.$opd['id_opd'].')">
+                                      <i class="fa fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm" onclick="deleteOPD('.$opd['id_opd'].')">
+                                      <i class="fa fa-times"></i>
+                                    </button>
+                                  </td>
+                                </tr>
+                                ';
+                              }
+                            ?>
+                            </tbody>
                           </table>
 
                         </div>
@@ -104,35 +104,36 @@
 
                 <!-- Modal body -->
                 <div class="modal-body">
-                  <form action="">
+                  <form action="process/admin/create-opd.php" method="POST">
                     <div class="form-group">
                       <label >Nama OPD</label>
-                      <input type="text" class="form-control" name="nama-opd" placeholder="Nama OPD">
+                      <input type="text" class="form-control" name="nama-opd" placeholder="Nama OPD" required>
                     </div>
                     <div class="form-group">
                       <label> Alamat OPD</label>
-                      <input type="text" class="form-control" name="alamat-opd" placeholder="Alamat OPD">
+                      <input type="text" class="form-control" name="alamat-opd" placeholder="Alamat OPD" required>
                     </div>
                     <div class="form-group">
                       <label> Kepala OPD</label>
-                      <input type="text" class="form-control" name="kepala-opd" placeholder="Kepala OPD">
+                      <input type="text" class="form-control" name="kepala-opd" placeholder="Kepala OPD" required>
                     </div>
                     <div class="form-group">
                       <label> Telepon OPD</label>
-                      <input type="text" class="form-control" name="telepon-opd" placeholder="Telepon OPD">
+                      <input type="text" class="form-control" name="telepon-opd" placeholder="Telepon OPD" required>
                     </div>
                     <div class="form-group">
                       <label> Email OPD</label>
-                      <input type="text" class="form-control" name="email-opd" placeholder="Email OPD">
+                      <input type="text" class="form-control" name="email-opd" placeholder="Email OPD" required>
                     </div>
                     
-                  </form>
+                  
                 </div>
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                  <button type="submit" class="btn btn-success">Simpan</button>
+                  <button type="submit" name="submit" class="btn btn-success">Simpan</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                  </form>
                 </div>
 
               </div>
@@ -152,35 +153,37 @@
 
                 <!-- Modal body -->
                 <div class="modal-body">
-                  <form action="">
+                  <form action="process/admin/update-opd.php" method="POST">
+                    <input type="hidden" name="edit-id-opd">
                     <div class="form-group">
                       <label >Nama OPD</label>
-                      <input type="text" class="form-control" name="nama-opd" placeholder="Nama OPD">
+                      <input type="text" class="form-control" name="edit-nama-opd" placeholder="Nama OPD">
                     </div>
                     <div class="form-group">
                       <label> Alamat OPD</label>
-                      <input type="text" class="form-control" name="alamat-opd" placeholder="Alamat OPD">
+                      <input type="text" class="form-control" name="edit-alamat-opd" placeholder="Alamat OPD">
                     </div>
                     <div class="form-group">
                       <label> Kepala OPD</label>
-                      <input type="text" class="form-control" name="kepala-opd" placeholder="Kepala OPD">
+                      <input type="text" class="form-control" name="edit-kepala-opd" placeholder="Kepala OPD">
                     </div>
                     <div class="form-group">
                       <label> Telepon OPD</label>
-                      <input type="text" class="form-control" name="telepon-opd" placeholder="Telepon OPD">
+                      <input type="text" class="form-control" name="edit-telepon-opd" placeholder="Telepon OPD">
                     </div>
                     <div class="form-group">
                       <label> Email OPD</label>
-                      <input type="text" class="form-control" name="email-opd" placeholder="Email OPD">
+                      <input type="text" class="form-control" name="edit-email-opd" placeholder="Email OPD">
                     </div>
                     
-                  </form>
+                  
                 </div>
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                  <button type="submit" class="btn btn-success">Simpan</button>
+                  <button type="submit" name="submit" class="btn btn-success">Simpan</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                  </form>
                 </div>
 
               </div>
