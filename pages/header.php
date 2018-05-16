@@ -7,6 +7,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <link rel="icon" href="https://denpasarkota.go.id/assets/templates/default/ico/favicon.png">
+
         <title>SIPERDIG ! | </title>
 
         <!-- Bootstrap -->
@@ -30,6 +32,8 @@
         <!-- <link href="vendors/switchery/dist/switchery.min.css" rel="stylesheet"> -->
         <!-- starrr -->
         <!-- <link href="vendors/starrr/dist/starrr.css" rel="stylesheet"> -->
+
+        <link rel="stylesheet" href="src/css/index.css">
     </head>
 
     <body class="nav-md">

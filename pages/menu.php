@@ -40,7 +40,7 @@
               <br>
             <h3>Data Master</h3>
             <ul class="nav side-menu">
-              <li><a href="main.php?formid=opd"><i class="fa fa-bank"></i> OPD</a>
+              <li><a href="index.php?pageid=opd"><i class="fa fa-bank"></i> OPD</a>
               <li><a href="#"><i class="fa fa-user"></i> User</a>
             </ul>
           </div>
