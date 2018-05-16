@@ -11,6 +11,8 @@
 					include_once "pages/content/penerbitan.php";
 				}else if($form == 'admDash'){
 					include_once "pages/content/adminDashboard.php";
+				}else if($form == 'admUser'){
+					include_once "pages/content/adminUserDashboard.php";
 				}else {
 					header('location : login.php');
 				}
