@@ -70,7 +70,7 @@
                                 <button class="btn btn-sm" onclick="getDetailUser(\''.$user['iduser'].'\')">
                                     <i class="fa fa-edit"></i>
                                 </button>
-                                <button class="btn btn-sm" onclick="deleteOPD('.$user['iduser'].')">
+                                <button class="btn btn-sm" onclick="deleteUser(\''.$user['iduser'].'\',\''.$user['nama'].'\')">
                                     <i class="fa fa-times"></i>
                                 </button>
                             </td>

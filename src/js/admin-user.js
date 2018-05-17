@@ -67,3 +67,21 @@ function onUpdate(checkboxElem) {
         $('#btnUpdate').hide()
     }
 }
+
+function deleteUser(id,nama){
+    let conf = confirm('Hapus item \nAtas Nama :'+nama+' dari daftar User?');
+    if(conf === true){
+        $.post('./process/admin/delete-user.php',{
+            iduser:id
+        }, function(data){
+            data = JSON.parse(data)
+            data = data[0]
+            if(JSON.parse(data)===1){
+                alert('Berhasil menghapus!')
+                location.reload();
+            }else{
+                alert('Gagal menghapus!')
+            }
+        })
+    }
+}
