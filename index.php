@@ -13,7 +13,9 @@
 					include_once "pages/content/adminDashboard.php";
 				}else if($form == 'admUser'){
 					include_once "pages/content/adminUserDashboard.php";
-				}else {
+				}else if($form == 'template_surat'){
+					include_once "pages/content/templateSurat.php";
+				}else{
 					header('location : login.php');
 				}
 			?>
