@@ -43,6 +43,9 @@ $db->connect();
         if($res){
             echo "<script>alert('Success!')</script>";
             header('Location: ../../index.php?pageid=admUser');
+        }else {
+            echo "<script>alert('Failed!')</script>";
+            header('Location: ../../index.php?pageid=admUser');
         }
     }
 
