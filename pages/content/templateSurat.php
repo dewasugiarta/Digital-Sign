@@ -8,11 +8,12 @@
   $res = $db->getResult();
   $res = $res[0];
 
+
   //verify if data exist
   if(count($res)){
     $fileSource = $res['source'].$res['nama_template'];
-    $fileDate = $res['file_date'];
-    $fileTime = $res['file_time'];
+    $fileDate = $res['upload_date'];
+    $fileTime = $res['upload_time'];
   }else{
       $fileSource = '#';
   }
@@ -40,12 +41,12 @@
                         <div class="x_title">
                           <h2>Update terakhir :
                           <?php 
-                                echo count($res);
+                                echo $fileDate.', pukul '.$fileTime;
                             ?>
                           </h2>
 
                           <div class="clearfix">
-                            <button class="btn btn-md btn-danger add-opd">
+                            <button class="btn btn-md btn-danger add-opd" onclick="handleTemplateDelete()">
                                 <i class="fa fa-trash"></i>
                                 Hapus Template Surat
                             </button>
