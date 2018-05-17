@@ -67,12 +67,12 @@
                             <td>'.$user['nama_opd'].'</td>
                             <td>'.$user['telepon'].'</td>
                             <td>
-                              <button class="btn btn-sm" onclick="getDetail('.$user['iduser'].')">
-                                <i class="fa fa-edit"></i>
-                              </button>
-                              <button class="btn btn-sm" onclick="delete('.$user['iduser'].')">
-                                <i class="fa fa-times"></i>
-                              </button>
+                                <button class="btn btn-sm" onclick="getDetailUser(\''.$user['iduser'].'\')">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm" onclick="deleteUser(\''.$user['iduser'].'\',\''.$user['nama'].'\')">
+                                    <i class="fa fa-times"></i>
+                                </button>
                             </td>
                           </tr>
                           ';
@@ -90,83 +90,156 @@
 
 <!-- Add User Modal -->
 <div class="modal" id="add-user">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Tambahkan User</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-        <form action="process/admin/create-user.php" method="POST">
-          <div class="form-group">
-            <label >Nama Lengkap</label>
-            <input id="addNama" type="text" class="form-control" name="addNama" onkeyup="getUsername()" placeholder="Nama Lengkap" required>
-          </div>
-          <div class="form-group">
-            <label >NIP</label>
-            <input type="text" class="form-control" name="addNIP" onkeyup="validateData('iduser',this.value)" placeholder="NIP" required>
-            <p id="messageNIP"></p>
-          </div>
-          <div class="form-group">
-            <label>NIK</label>
-            <input type="text" class="form-control" name="addNIK" placeholder="NIK" required>
-          </div>
-          <div class="form-group">
-            <label >Pangkat/Golongan</label>
-            <input type="text" class="form-control" name="addPangkat" placeholder="Pangkat/Golongan" required>
-          </div>
-          <div class="form-group">
-            <label>Jabatan</label>
-            <input type="text" class="form-control" name="addJabatan" placeholder="Jabatan" required>
-          </div>
-          <div class="form-group">
-            <label>Instansi</label>
-            <input type="text" class="form-control" name="addInstansi" placeholder="instansi" required>
-          </div>
-          <div class="form-group">
-            <label>OPD</label>
-            <select class="form-control" name="addOPD">
-                <option value="" readonly selected>Pilih OPD</option>
-                <?php
-                    $dbOpd = new Database;
-                    $dbOpd->connect();
-                    $dbOpd->select('opd','id_opd,nama_opd',NULL,NULL,'id_opd DESC');
-                    $resOpd = $dbOpd->getResult();
-                    foreach ($resOpd as $dataOpd){
-                        echo '<option value="'.$dataOpd['id_opd'].'">'.$dataOpd['nama_opd'].'</option>';
-                    }
-                ?>
-            </select>
-          </div>
-          <div class="form-group">
-            <label> Telepon</label>
-            <input type="text" class="form-control" name="addTelepon" placeholder="Telepon" required>
-          </div>
-          <div class="form-group">
-            <label> Email</label>
-            <input type="email" class="form-control" name="addEmail" placeholder="Email" required>
-          </div>
-          <div class="form-group">
-            <label> Username</label>
-            <input id="addUsername" type="text" class="form-control" name="addUsername" placeholder="Username" readonly required>
-          </div>
-      </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="submit" name="submit" class="btn btn-success">Simpan</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-        </form>
-      </div>
-
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Tambahkan User</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="process/admin/create-user.php" method="POST">
+                    <div class="form-group">
+                        <label >Nama Lengkap</label>
+                        <input id="addNama" type="text" class="form-control" name="addNama" onkeyup="getUsername()" placeholder="Nama Lengkap" required>
+                    </div>
+                    <div class="form-group">
+                        <label >NIP</label>
+                        <input type="text" class="form-control" name="addNIP" onkeyup="validateData('iduser',this.value)" placeholder="NIP" required>
+                        <p id="messageNIP"></p>
+                    </div>
+                    <div class="form-group">
+                        <label>NIK</label>
+                        <input type="text" class="form-control" name="addNIK" placeholder="NIK" required>
+                    </div>
+                    <div class="form-group">
+                        <label >Pangkat/Golongan</label>
+                        <input type="text" class="form-control" name="addPangkat" placeholder="Pangkat/Golongan" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Jabatan</label>
+                        <input type="text" class="form-control" name="addJabatan" placeholder="Jabatan" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Instansi</label>
+                        <input type="text" class="form-control" name="addInstansi" placeholder="instansi" required>
+                    </div>
+                    <div class="form-group">
+                        <label>OPD</label>
+                        <select class="form-control" name="addOPD">
+                            <option value="" readonly selected>Pilih OPD</option>
+                            <?php
+                                $dbOpd = new Database;
+                                $dbOpd->connect();
+                                $dbOpd->select('opd','id_opd,nama_opd',NULL,NULL,'id_opd DESC');
+                                $resOpd = $dbOpd->getResult();
+                                foreach ($resOpd as $dataOpd){
+                                    echo '<option value="'.$dataOpd['id_opd'].'">'.$dataOpd['nama_opd'].'</option>';
+                                }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label> Telepon</label>
+                        <input type="text" class="form-control" name="addTelepon" placeholder="Telepon" required>
+                    </div>
+                    <div class="form-group">
+                        <label> Email</label>
+                        <input type="email" class="form-control" name="addEmail" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label> Username</label>
+                        <input id="addUsername" type="text" class="form-control" name="addUsername" placeholder="Username" readonly required>
+                    </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="submit" name="submit" class="btn btn-success">Simpan</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+            </div>
+            </form>
+        </div>
     </div>
-  </div>
 </div>
 <!-- end modal add -->
+
+<!-- Update User Modal -->
+<div class="modal" id="update-user">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Detail User</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="process/admin/update-user.php" method="POST">
+                    <div class="form-group">
+                        <label >Nama Lengkap</label>
+                        <input id="updateNama" type="text" class="form-control" name="updateNama" placeholder="Nama Lengkap" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <label >NIP</label>
+                        <input type="text" class="form-control" name="updateNIP" placeholder="NIP"  readonly required>
+                        <p id="messageNIP"></p>
+                    </div>
+                    <div class="form-group">
+                        <label>NIK</label>
+                        <input id="updateNIK" type="text" class="form-control" name="updateNIK" placeholder="NIK" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <label >Pangkat/Golongan</label>
+                        <input id="updatePangkat" type="text" class="form-control" name="updatePangkat" readonly placeholder="Pangkat/Golongan" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Jabatan</label>
+                        <input id="updateJabatan" type="text" class="form-control" name="updateJabatan" readonly placeholder="Jabatan" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Instansi</label>
+                        <input id="updateInstansi" type="text" class="form-control" name="updateInstansi" readonly placeholder="instansi" required>
+                    </div>
+                    <div class="form-group">
+                        <label>OPD</label>
+                        <select id="updateOPD" class="form-control" name="updateOPD" readonly>
+                            <option value="" readonly selected>Pilih OPD</option>
+                            <?php
+                                $dbOpd = new Database;
+                                $dbOpd->connect();
+                                $dbOpd->select('opd','id_opd,nama_opd',NULL,NULL,'id_opd DESC');
+                                $resOpd = $dbOpd->getResult();
+                                foreach ($resOpd as $dataOpd){
+                                    echo '<option value="'.$dataOpd['id_opd'].'">'.$dataOpd['nama_opd'].'</option>';
+                                }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label> Telepon</label>
+                        <input id="updateTelepon" type="text" class="form-control" name="updateTelepon" readonly placeholder="Telepon" required>
+                    </div>
+                    <div class="form-group">
+                        <label> Email</label>
+                        <input id="updateEmail" type="email" class="form-control" name="updateEmail" readonly  placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label> Username</label>
+                        <input id="updateUsername" type="text" class="form-control" name="updateUsername" placeholder="Username" readonly required>
+                    </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <span style="padding: 5px" class="pull-left">EDIT</span><input class="pull-left" style="padding:5px;margin-top: 8px;" type="checkbox" name="updateToggle" id="updateToggle"  onchange="onUpdate(this)">
+                <button id="btnUpdate" type="submit" name="submit" class="btn btn-success">Update</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end modal update -->
 
 <!-- admin user js -->
 <script type="text/javascript" src="src/js/admin-user.js"></script>
