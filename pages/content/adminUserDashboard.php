@@ -7,7 +7,7 @@
                 'user.iduser, user.nama, user.nik, user.pangkat_golongan,'
                 .'user.jabatan, user.instansi, opd.nama_opd, user.email, '
                 .'user.telepon, user.username',
-                'opd ON user.id_opd=opd.id_opd',null,'iduser DESC');
+                'opd ON user.id_opd=opd.id_opd',null,'timestamp DESC');
   $res = $db->getResult();
 ?>
 
@@ -235,6 +235,7 @@
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
+                <a id="btnUpdatePass" href="" name="btnUpdatePass" class="btn btn-primary" >Ganti Password</a>
                 <button id="btnUpdate" type="submit" name="submit" class="btn btn-success">Update</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
             </div>
