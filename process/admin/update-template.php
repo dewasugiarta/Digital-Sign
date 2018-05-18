@@ -9,7 +9,6 @@
 
         $file = ($_FILES['file']);
 
-
         //get file extension
         //specify upload dir
         //verify err

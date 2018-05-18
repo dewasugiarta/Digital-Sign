@@ -23,8 +23,19 @@ function handleFileChange(){
 }
 
 function handleTemplateSubmit(){
-    let conf = confirm('test yakin?');
+    let conf = confirm('Ganti template surat yang sudah ada?');
     if(conf==true){
         return true
     }else return false;
+}
+
+function handleTemplateDelete(){
+    let conf = confirm('Hapus Template Surat yang sudah ada?')
+    if(conf==true){
+        $.post('./process/admin/delete-template.php',{
+            id:1
+        }, function(data){
+            location.reload()
+        })
+    }
 }
