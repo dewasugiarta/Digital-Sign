@@ -173,7 +173,8 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Detail User</h4>
                 <div>
-                    <input class="pull-right" style="padding:5px;margin-top: 9px;" type="checkbox" name="updateToggle" id="updateToggle"  onchange="onUpdate(this)"><span style="padding: 6px" class="pull-right"><strong>EDIT</strong></span>
+                    <input class="pull-right" style="padding:5px;margin-top: 9px;" type="checkbox" name="updateToggle" id="updateToggle"  onchange="onUpdate(this)">
+                    <span style="padding: 6px" class="pull-right"><strong>EDIT</strong></span>
                 </div>
             </div>
             <!-- Modal body -->
