@@ -52,7 +52,7 @@
                         <tr>
                           <th>Nama Lengkap</th>
                           <th>NIP</th>
-                          <th>OPD</th>
+                          <th>Unit Kerja</th>
                           <th>Telepon</th>
                           <th>Aksi</th>
                         </tr>
@@ -126,9 +126,9 @@
                         <input type="text" class="form-control" name="addInstansi" placeholder="instansi" required>
                     </div>
                     <div class="form-group">
-                        <label>OPD</label>
+                        <label>Unit Kerja</label>
                         <select class="form-control" name="addOPD">
-                            <option value="" readonly selected>Pilih OPD</option>
+                            <option value="" readonly selected>Pilih Unit Kerja</option>
                             <?php
                                 $dbOpd = new Database;
                                 $dbOpd->connect();
@@ -170,8 +170,11 @@
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Detail User</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Detail User</h4>
+                <div>
+                    <input class="pull-right" style="padding:5px;margin-top: 9px;" type="checkbox" name="updateToggle" id="updateToggle"  onchange="onUpdate(this)"><span style="padding: 6px" class="pull-right"><strong>EDIT</strong></span>
+                </div>
             </div>
             <!-- Modal body -->
             <div class="modal-body">
@@ -202,9 +205,9 @@
                         <input id="updateInstansi" type="text" class="form-control" name="updateInstansi" readonly placeholder="instansi" required>
                     </div>
                     <div class="form-group">
-                        <label>OPD</label>
+                        <label>Unit Kerja</label>
                         <select id="updateOPD" class="form-control" name="updateOPD" readonly>
-                            <option value="" readonly selected>Pilih OPD</option>
+                            <option value="" readonly selected>Pilih Unit Kerja</option>
                             <?php
                                 $dbOpd = new Database;
                                 $dbOpd->connect();
@@ -231,7 +234,6 @@
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
-                <span style="padding: 5px" class="pull-left">EDIT</span><input class="pull-left" style="padding:5px;margin-top: 8px;" type="checkbox" name="updateToggle" id="updateToggle"  onchange="onUpdate(this)">
                 <button id="btnUpdate" type="submit" name="submit" class="btn btn-success">Update</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
             </div>
