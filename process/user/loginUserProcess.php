@@ -1,4 +1,5 @@
 <?php
+    session_start();
     if(!$_POST['login']){
         include_once "../../config/dbConfig.php";
 
@@ -35,7 +36,7 @@
         //verify password
         if (password_verify($password, $hash)) {
             $_SESSION['loginState'] = 'user';
-            header('Location: ../../index.php');
+            header('Location: ../../index.php?pageid=userDash');
         } else {
             echo "  <script type='text/javascript'>alert('Wrong Username or Password');
                         window.location='../../loginUser.php';
