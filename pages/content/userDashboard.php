@@ -1,28 +1,75 @@
-<div class="right_col" role="main">
-   <div class="row">
-       <div class="col-md-4" style="padding:10px;">
-           <a class="btn btn-app" style="height:200px;width:100%; padding:30px;background:#228ae6;">
-               <i class="fa fa-edit" style="font-size:80px;color:white;"></i>
-               <p style="font-size:25px;color:white;">PENGAJUAN</p>
-           </a>
-       </div>
-       <div class="col-md-4" style="padding:10px;">
-           <a class="btn btn-app" style="height:200px;width:100%; padding:30px;background:#fab005;">
-               <i class="fa fa-sign-out" style="font-size:80px;color:white;"></i>
-               <p style="font-size:25px;color:white;">PENCABUTAN</p>
-           </a>
-       </div>
-       <div class="col-md-4" style="padding:10px;">
-           <a href="index.php?pageid=opd" class="btn btn-app" style="height:200px;width:100%; padding:30px;background:#4de6ca;">
-               <i class="fa fa-bank" style="font-size:80px;color:white;"></i>
-               <p style="font-size:25px;color:white;">OPD</p>
-           </a>
-       </div>
-       <div class="col-md-4" style="padding:10px;">
-           <a class="btn btn-app" style="height:200px;width:100%; padding:30px;background:#ff4c52;">
-               <i class="fa fa-user" style="font-size:80px;color:white;"></i>
-               <p style="font-size:25px;color:white;">USER</p>
-           </a>
-       </div>
-   </div>
-</div>
+<!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>User Dashboard</h3>
+              </div>
+
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="">
+                  <div class="x_content">
+                    <div class="row">
+                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="tile-stats">
+                          <div class="icon"><i class="fa fa-caret-square-o-right"></i>
+                          </div>
+                          <div class="count">179</div>
+
+                          <h3>New Sign ups</h3>
+                          <p>Lorem ipsum psdea itgum rixt.</p>
+                        </div>
+                      </div>
+                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="tile-stats">
+                          <div class="icon"><i class="fa fa-comments-o"></i>
+                          </div>
+                          <div class="count">179</div>
+
+                          <h3>New Sign ups</h3>
+                          <p>Lorem ipsum psdea itgum rixt.</p>
+                        </div>
+                      </div>
+                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="tile-stats">
+                          <div class="icon"><i class="fa fa-sort-amount-desc"></i>
+                          </div>
+                          <div class="count">179</div>
+
+                          <h3>New Sign ups</h3>
+                          <p>Lorem ipsum psdea itgum rixt.</p>
+                        </div>
+                      </div>
+                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="tile-stats">
+                          <div class="icon"><i class="fa fa-check-square-o"></i>
+                          </div>
+                          <div class="count">179</div>
+
+                          <h3>New Sign ups</h3>
+                          <p>Lorem ipsum psdea itgum rixt.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
