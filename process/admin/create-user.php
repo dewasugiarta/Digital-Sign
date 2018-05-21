@@ -57,7 +57,7 @@ $db->connect();
     function getPassword($pass){
         $options = [
             'cost' => 12,
-            'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM),
+            'salt' => uniqid(mt_rand(), true)
         ];
         $hash_pass =  password_hash($pass, PASSWORD_BCRYPT, $options);
         return $hash_pass;

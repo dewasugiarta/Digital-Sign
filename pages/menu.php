@@ -25,7 +25,7 @@
           <div class="menu_section">
             <h3>Rekomendasi</h3>
             <ul class="nav side-menu">
-              <li><a><i class="fa fa-file"></i> Permohonan<span class="fa fa-chevron-down"></span></a>
+              <li><a><i class="fa fa-file"></i> Validasi<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                   <li><a href="index.php?pageid=penerbitan">Penerbitan</a></li>
                   <li><a href="#">Pencabutan</a></li>
@@ -37,8 +37,9 @@
                   <li><a href="#">Rekomendasi Penerbitan</a></li>
                   <li><a href="#">Lupa Passphrase</a></li>
                 </ul>
-              </li>               </ul>
-              <br>
+              </li>
+            </ul>
+            <br>
             <h3>Data Master</h3>
             <ul class="nav side-menu">
               <li><a href="index.php?pageid=opd"><i class="fa fa-bank"></i> OPD</a>
