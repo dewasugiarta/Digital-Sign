@@ -55,9 +55,10 @@ $db->connect();
     }
 
     function getPassword($pass){
+
         $options = [
             'cost' => 12,
-            'salt' => uniqid(mt_rand(), true)
+            'salt' => uniqid(mt_rand(),true),
         ];
         $hash_pass =  password_hash($pass, PASSWORD_BCRYPT, $options);
         return $hash_pass;
