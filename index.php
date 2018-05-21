@@ -33,7 +33,7 @@
 						if($form == 'userDash'){
 							include_once "pages/content/userDashboard.php";
 						}else if($form == 'userPenerbitan'){
-							echo "penerbitan";
+							include_once "pages/content/userPenerbitan.php";
 						}else{
 							echo "<meta http-equiv=\"refresh\" content=\"0;URL=index.php?pageid=userDash\">";
 						}
