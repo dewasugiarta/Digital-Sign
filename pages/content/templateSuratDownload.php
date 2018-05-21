@@ -21,7 +21,6 @@
 
 ?>
 
-<script type="text/javascript" src="src/js/template-surat.js"></script>
           <!-- page content -->
               <div class="right_col" role="main">
                 <div class="">

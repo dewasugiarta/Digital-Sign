@@ -36,6 +36,8 @@
 							echo "penerbitan";
 						}else if($form == 'template_surat'){
 							include_once "pages/content/templateSuratDownload.php";
+						}else if($form == 'profile'){
+							include_once "pages/content/userProfile.php";
 						}else{
 							echo "<meta http-equiv=\"refresh\" content=\"0;URL=index.php?pageid=userDash\">";
 						}
