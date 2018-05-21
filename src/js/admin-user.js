@@ -20,6 +20,7 @@ function validateData(command,id){
     })
 }
 
+//push data to modal update
 function getDetailUser(id){
     $.get('./process/admin/read-user.php',{
         iduser : id
@@ -37,12 +38,15 @@ function getDetailUser(id){
         $('input[name=updateUsername').val(data.username).prop('readonly', true);
         $('input[name=updateTelepon').val(data.telepon).prop('readonly', true);
         $('select[name=updateOPD').val(data.id_opd).prop('readonly', true);
+        $("#btnUpdatePass").attr('href', 'pages/content/gantiPassUser.php?id='+data.iduser+'')
         $('#updateToggle').prop('checked', false);
         $('#btnUpdate').hide()
+        $('#btnUpdatePass').hide()
         $('#update-user').modal('show')
     })
 }
 
+//edit check box handle
 function onUpdate(checkboxElem) {
     if (checkboxElem.checked) {
         $('#updateNama').prop('readonly', false);
@@ -54,6 +58,7 @@ function onUpdate(checkboxElem) {
         $('#updateTelepon').prop('readonly', false);
         $('#updateOPD').attr("readonly", false);
         $('#btnUpdate').show();
+        $('#btnUpdatePass').show()
 
     } else {
         $('#updateNama').prop('readonly', true);
@@ -65,9 +70,11 @@ function onUpdate(checkboxElem) {
         $('#updateTelepon').prop('readonly', true);
         $('#updateOPD').attr('readonly', true);
         $('#btnUpdate').hide()
+        $('#btnUpdatePass').hide()
     }
 }
 
+//delete user
 function deleteUser(id,nama){
     let conf = confirm('Hapus item \nAtas Nama :'+nama+' dari daftar User?');
     if(conf === true){

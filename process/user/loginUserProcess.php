@@ -10,32 +10,41 @@
         $password = $_POST['password'];
         $password = $db->escapeString($password);
         //option for bcrypt
-        $options = [
-            'cost' => 12,
-        ];
+        // $options = [
+        //     'cost' => 12,
+        //     'salt' => uniqid(mt_rand(),true)
+        // ];
         // $hash_pass =  password_hash($password, PASSWORD_BCRYPT, $options);
         // echo "$hash_pass";
         // echo "<br>";
 
 
-        $db->select('admin','username,password',null,'username="'.$username.'"'); // Table name, Column Names, WHERE conditions
+        $db->select('user','username,password',null,'username="'.$username.'"'); // Table name, Column Names, WHERE conditions
         $res = $db->getResult();
 
         foreach($res as $result) {
             $hash = $result['password'];
         }
+        // echo $hash;
+        // echo $password;
+        // if(password_verify($password, $hash)){
+        //     echo "success";
+        // }else {
+        //     echo "fail";
+        // }
+
         //verify password
         if (password_verify($password, $hash)) {
-            $_SESSION['loginState'] = 'admin';
-            header('Location: ../../index.php?pageid=admDash');
+            $_SESSION['loginState'] = 'user';
+            header('Location: ../../index.php?pageid=userDash');
         } else {
             echo "  <script type='text/javascript'>alert('Wrong Username or Password');
-                        window.location='../../loginAdmin.php';
+                        window.location='../../loginUser.php';
                     </script>";
             $db->disconnect();
         }
     }else {
-        header("location: ../loginAdmin.php");
+        header("location: ../loginUser.php");
     }
 
 ?>
