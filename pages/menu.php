@@ -11,11 +11,11 @@
         <!-- menu profile quick info -->
         <div class="profile clearfix">
           <div class="profile_pic">
-            <img src="pages/images/img.jpg" alt="..." class="img-circle profile_img">
+            <img src="src/img/user1.png" alt="..." class="img-circle profile_img">
           </div>
           <div class="profile_info">
             <span>Welcome,</span>
-            <h2>John Doe</h2>
+            <h2><?php echo strtoupper($_SESSION['loginState'])?></h2>
           </div>
         </div>
         <!-- /menu profile quick info -->
@@ -79,7 +79,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li class="">
               <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                <img src="images/img.jpg" alt="">John Doe
+                <img src="images/img.jpg" alt=""><?php echo strtoupper($_SESSION['loginState'])?>
                 <span class=" fa fa-angle-down"></span>
               </a>
               <ul class="dropdown-menu dropdown-usermenu pull-right">

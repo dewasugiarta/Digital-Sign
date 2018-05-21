@@ -24,6 +24,7 @@
 
         foreach($res as $result) {
             $hash = $result['password'];
+            $activeUser = $result['username'];
         }
         // echo $hash;
         // echo $password;
@@ -36,6 +37,7 @@
         //verify password
         if (password_verify($password, $hash)) {
             $_SESSION['loginState'] = 'user';
+            $_SESSION['user'] = $activeUser;
             header('Location: ../../index.php?pageid=userDash');
         } else {
             echo "  <script type='text/javascript'>alert('Wrong Username or Password');
