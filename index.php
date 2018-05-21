@@ -23,7 +23,7 @@
 						}else if($form == 'template_surat'){
 							include_once "pages/content/templateSurat.php";
 						}else{
-							echo "<meta http-equiv=\"refresh\" content=\"0;URL=index.php?pageid=userDash\">";
+							echo "<meta http-equiv=\"refresh\" content=\"0;URL=index.php?pageid=admDash\">";
 						}
 					break;
 					case 'user':
@@ -34,6 +34,8 @@
 							include_once "pages/content/userDashboard.php";
 						}else if($form == 'userPenerbitan'){
 							include_once "pages/content/userPenerbitan.php";
+						}else if($form == 'template_surat'){
+							include_once "pages/content/templateSuratDownload.php";
 						}else{
 							echo "<meta http-equiv=\"refresh\" content=\"0;URL=index.php?pageid=userDash\">";
 						}
