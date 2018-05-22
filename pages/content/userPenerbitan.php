@@ -22,10 +22,12 @@
                             <h2>List Pengajuan Penerbitan</h2>
 
                             <div class="clearfix">
-                                <button class="btn btn-md btn-success add-opd" data-toggle="modal" data-target="#add-user">
-                                    <i class="fa fa-plus"></i>
-                                    Tambah User
-                                </button>
+                                <a href="index.php?pageid=formPenerbitan">
+                                    <button class="btn btn-md btn-success add-opd">
+                                        <i class="fa fa-plus"></i>
+                                        Pengajuan Penerbitan
+                                    </button>
+                                </a>
                             </div>
                         </div>
                         <div class="x_content">

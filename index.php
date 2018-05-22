@@ -34,6 +34,8 @@
 							include_once "pages/content/userDashboard.php";
 						}else if($form == 'userPenerbitan'){
 							include_once "pages/content/userPenerbitan.php";
+						}else if($form == 'formPenerbitan'){
+							include_once "pages/content/userPengajuanPenerbitan.php";
 						}else if($form == 'template_surat'){
 							include_once "pages/content/templateSuratDownload.php";
 						}else{
