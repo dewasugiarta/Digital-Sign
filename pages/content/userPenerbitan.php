@@ -1,11 +1,12 @@
 <?php
   include("config/dbConfig.php");
 
+  $iduser = $_SESSION['iduser'];
   $db = new Database;
   $db->connect();
   $db->select('pengajuan',
                 'pengajuan.id, pengajuan.nama, pengajuan.nip, opd.nama_opd, pengajuan.tanggal, pengajuan.status',
-                'opd ON pengajuan.id_opd=opd.id_opd',null,'tanggal DESC');
+                'opd ON pengajuan.id_opd=opd.id_opd','iduser="'.$iduser.'"','tanggal DESC');
   $res = $db->getResult();
 ?>
 <div class="right_col" role="main">
@@ -35,7 +36,7 @@
                                 <table id="datatable" class="table table-striped table-bordered" style="white-space: nowrap;">
                                     <thead>
                                         <tr>
-                                            <th>Nama Pengaju</th>
+                                            <th>Nama Direkomendasikan</th>
                                             <th>NIP</th>
                                             <th>Unit Kerja</th>
                                             <th>Tangal Pengajuan</th>
