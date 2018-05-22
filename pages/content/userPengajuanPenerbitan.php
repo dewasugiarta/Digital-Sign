@@ -32,8 +32,7 @@
                         <hr>
                         <div class="">
                             <!-- Default form contact -->
-                            <form style="" enctype="multipart/form-data">
-
+                            <form action="process/user/pengajuanPenerbitanProses.php" enctype="multipart/form-data" method="post">
                                 <label class="grey-text">Nama</label>
                                 <input type="text" id="" name="nama" class="form-control">
 
@@ -41,33 +40,27 @@
 
 
                                 <label class="grey-text">NIP</label>
-                                <input type="email" id="" name="nip" class="form-control">
+                                <input type="text" id="" name="nip" class="form-control">
 
                                 <br>
 
                                 <label class="grey-text">NIK</label>
-                                <input type="email" id="" name="nik" class="form-control">
+                                <input type="text" id="" name="nik" class="form-control">
 
                                 <br>
 
-                                <table>
+                                <table style="width:100%;">
                                     <tr>
+                                        <td><label  class="grey-text">Pangkat/Golongan</label></td>
                                         <td><label  class="grey-text">Email</label></td>
-                                        <td><label  class="grey-text">Telepon</label></td>
                                     </tr>
                                     <tr>
-                                        <td style="padding-right: 10px; width:60%;"><input type="email" id="" name="email" class="form-control"></input></td>
-                                        <td style=" width:100%;"><input type="text" id="" name="telepon" class="form-control"></input></td>
+                                        <td style="padding-right: 10px; "><input type="text" id="" name="pangkat" class="form-control"></input></td>
+                                        <td style="padding-right: 10px; "><input type="email" id="" name="email" class="form-control"></input></td>
                                     </tr>
                                 </table>
 
                                 <br>
-
-                                <label class="grey-text">Pangkat/Golongan</label>
-                                <input type="text" id="" name="pangkat" class="form-control">
-
-                                <br>
-
 
                                 <label class="grey-text">Jabatan</label>
                                 <input type="text" id="" name="jabatan" class="form-control"></input>
@@ -125,14 +118,15 @@
                                         <td><label  class="grey-text">Scan Surat Rekomendasi (PDF)</label></td>
                                     </tr>
                                     <tr>
-                                        <td style="padding-right: 27px;"><input type="file" id="" name="ktp" class="form-control" accept="image/img, image/jpeg , image/jpg" ></input></td>
-                                        <td><input type="file" id="" name="surat" class="form-control" accept="application/pdf"></input></td>
+                                        <td style="padding-right: 27px;"><input type="file" id="ktp" name="ktp" onchange="checkSizeKtp()" class="form-control" accept="image/jpeg , image/jpg" ></input></td>
+                                        <td><input type="file" id="surat" name="surat" onchange="checkPdf()" class="form-control" accept="application/pdf"></input></td>
+                                        <script type="text/javascript" src="src/js/checkFile.js"></script>
                                     </tr>
                                 </table>
                                 <br>
                                 <br>
                                 <div class="text-center mt-4">
-                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                    <input class="btn btn-primary" type="submit" name="submit" value="Submit">
                                     <button class="btn btn-danger" type="batal">Batal</button>
                                 </div>
 

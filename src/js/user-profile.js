@@ -4,7 +4,7 @@ function getUserDetail(uname){
     }, function(data){
         data = JSON.parse(data)
         data = data[0]
-        
+
         $("#update-nama").val(data.nama)
         $("#update-nik").val(data.nik)
         $("#update-pangkat-golongan").val(data.pangkat_golongan)
@@ -38,7 +38,7 @@ function getOPD(id){
 
 function handleUpdateProfile(){
     let conf = confirm('Update infromasi profile?')
-    
+
     if(!conf){
         $("#update-profile").modal('hide')
         return false
