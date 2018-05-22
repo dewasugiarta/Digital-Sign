@@ -53,6 +53,7 @@
                           </div>
                         </div>
                         <div class="x_content">
+                            <div class="col-md-2"></div>
                             <div class="col-md-7">
                             <?php
                                 foreach($res as $user){

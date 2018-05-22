@@ -144,8 +144,8 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                  <h4 class="modal-title">Detail Pengajuan</h4>
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Detail Pengajuan</h4>
                 </div>
 
                 <!-- Modal body -->
