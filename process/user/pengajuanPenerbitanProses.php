@@ -52,7 +52,7 @@
         $suratExt = explode('.',$surat['name']);
         $suratExt = end($suratExt);
         //rename & directory
-        $uploadSurat = '../../src/userSurat/'.$iduser.'.'.$suratExt;
+        $uploadSurat = '../../src/userSurat/'.$nip.'.'.$suratExt;
         //move data from tmp to actual path
         $tmpSuratDir = $surat['tmp_name'];
         move_uploaded_file($tmpSuratDir, $uploadSurat);
@@ -75,8 +75,8 @@
             'id_opd'=>$opd,
             'sistem'=>$sistem,
             'kegunaan'=>$kegunaan,
-            'ktp'=>$uploadKtp,
-            'surat'=>$resize_image,
+            'ktp'=>$resize_image,
+            'surat'=>$uploadSurat,
             'status'=>$status
         ));
         $res = $db->getResult();
