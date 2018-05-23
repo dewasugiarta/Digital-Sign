@@ -47,6 +47,7 @@
         imagedestroy($thumb);
         imagedestroy($source);
 
+        $linkUploadKtp = 'src/userKtp/'.$nip.'.'.$ktpExt;
 
         //get ext surat
         $suratExt = explode('.',$surat['name']);
@@ -57,7 +58,8 @@
         $tmpSuratDir = $surat['tmp_name'];
         move_uploaded_file($tmpSuratDir, $uploadSurat);
 
-
+        //simpan nama data saja ke database
+        $linkUploadSurat = 'src/userSurat/'.$nip.'.'.$suratExt;
 
         // echo $iduser."|".$nama."|".$nip."|".$nik."|".$pangkat."|".$jabatan."|".$instansi."|".$email."|".$telepon."|".$kota."|".$provinsi
         //     ."|".$opd."|".$sistem."|".$kegunaan."|".$uploadKtp."|".$uploadSurat."|".$status;
@@ -75,8 +77,8 @@
             'id_opd'=>$opd,
             'sistem'=>$sistem,
             'kegunaan'=>$kegunaan,
-            'ktp'=>$resize_image,
-            'surat'=>$uploadSurat,
+            'ktp'=>$linkUploadKtp,
+            'surat'=>$linkUploadSurat,
             'status'=>$status
         ));
         $res = $db->getResult();

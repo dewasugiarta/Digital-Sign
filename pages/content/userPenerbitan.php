@@ -56,12 +56,12 @@
                                                         <td>'.$data['nip'].'</td>
                                                         <td>'.$data['nama_opd'].'</td>
                                                         <td>'.$data['tanggal'].'</td>
-                                                        <td>'.$data['status'].'</td>
+                                                        <td>Status</td>
                                                         <td>
-                                                            <button class="btn btn-sm" onclick="getDetailUser(\''.$data['id'].'\')">
+                                                            <button class="btn btn-sm" onclick="getDetailUser('.$data['id'].')">
                                                                 <i class="fa fa-edit"></i>
                                                             </button>
-                                                            <button class="btn btn-sm" onclick="deleteUser(\''.$data['id'].'\',\''.$data['nama'].'\')">
+                                                            <button class="btn btn-sm" onclick="deleteUser('.$data['id'].','.$data['nama'].')">
                                                                 <i class="fa fa-times"></i>
                                                             </button>
                                                         </td>
@@ -94,3 +94,106 @@
         </div>
     </div>
 </div>
+
+
+<!-- Update User Modal -->
+<div class="modal" id="update-penerbitan">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Detail  Pengajuan Penerbitan</h4>
+                <div>
+                    <input class="pull-right" style="padding:5px;margin-top: 9px;" type="checkbox" name="updateToggle" id="updateToggle"  onchange="onUpdate(this)">
+                    <span style="padding: 6px" class="pull-right"><strong>EDIT</strong></span>
+                </div>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="process/admin/update-penerbitan.php" method="POST">
+                    <div class="form-group">
+                        <label >Nama Lengkap</label>
+                        <input id="updateNama" type="text" class="form-control" name="updateNama" placeholder="Nama Lengkap" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <label >NIP</label>
+                        <input type="text" id="updateNIP" class="form-control" name="updateNIP" placeholder="NIP"  readonly required>
+                        <p id="messageNIP"></p>
+                    </div>
+                    <div class="form-group">
+                        <label>NIK</label>
+                        <input id="updateNIK" type="text" class="form-control" name="updateNIK" placeholder="NIK" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <label >Pangkat/Golongan</label>
+                        <input id="updatePangkat" type="text" class="form-control" name="updatePangkat" readonly placeholder="Pangkat/Golongan" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Jabatan</label>
+                        <input id="updateJabatan" type="text" class="form-control" name="updateJabatan" readonly placeholder="Jabatan" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Instansi</label>
+                        <input id="updateInstansi" type="text" class="form-control" name="updateInstansi" readonly placeholder="instansi" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Kota</label>
+                        <input id="updateKota" type="text" class="form-control" name="updateKota" readonly placeholder="Kota" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Provinsi</label>
+                        <input id="updateProvinsi" type="text" class="form-control" name="updateProvinsi" readonly placeholder="Provinsi" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Unit Kerja</label>
+                        <select id="updateOPD" class="form-control" name="updateOPD" disabled>
+                            <option value="" readonly selected>Pilih Unit Kerja</option>
+                            <?php
+                                $dbOpd = new Database;
+                                $dbOpd->connect();
+                                $dbOpd->select('opd','id_opd,nama_opd',NULL,NULL,'id_opd DESC');
+                                $resOpd = $dbOpd->getResult();
+                                foreach ($resOpd as $dataOpd){
+                                    echo '<option value="'.$dataOpd['id_opd'].'">'.$dataOpd['nama_opd'].'</option>';
+                                }
+                            ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label> Email</label>
+                        <input id="updateEmail" type="email" class="form-control" name="updateEmail" readonly  placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label> Sistem</label>
+                        <input id="updateSistem" type="text" class="form-control" name="updateSistem" readonly  placeholder="Sistem" required>
+                    </div>
+                    <div class="form-group">
+                        <label> Kegunaan</label>
+                        <input id="updateKegunaan" type="text" class="form-control" name="updateKegunaan" readonly  placeholder="Kegunaan" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Berkas KTP</label>
+                        <br>
+                        <button id="previewKTP" type="button" class="btn btn-success" onclick="berkasView(this.dataset.id,this.dataset.nip,this.dataset.get)" style="margin-bottom:10px"><i class="fa fa-search"></i>Preview</button>
+                        <input type="file" id="updateKTP" name="updateKTP" onchange="checkSizeKtp()" class="form-control" accept="image/jpeg, image/jpg"></input>
+                    </div>
+                    <div class="form-group">
+                        <label>Berkas Surat Rekomendasi</label>
+                        <br>
+                        <button id="previewSurat" type="button" class="btn btn-success" onclick="berkasView(this.dataset.id,this.dataset.nip,this.dataset.get)" style="margin-bottom:10px"><i class="fa fa-search"></i>Preview</button>
+                        <input type="file" id="updateSurat" name="updateSurat" onchange="checkPdf()" class="form-control" accept="application/pdf"></input>
+                    </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button id="btnUpdate" type="submit" name="submit" class="btn btn-success">Update</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end modal update -->
+<script type="text/javascript" src="src/js/penerbitan.js"></script>
