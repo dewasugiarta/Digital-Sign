@@ -34,8 +34,6 @@
                <li><a><i class="fa fa-file-text"></i> Dokumen<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                   <li><a href="index.php?pageid=template_surat">Template Surat Rekomendasi</a></li>
-                  <li><a href="#">Rekomendasi Penerbitan</a></li>
-                  <li><a href="#">Lupa Passphrase</a></li>
                 </ul>
               </li>
             </ul>
