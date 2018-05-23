@@ -41,66 +41,68 @@
                       <div class="x_panel">
                         <div class="x_title">
                           <h2>Daftar Rekomendasi dan Pengajuan</h2>
-                          <?php
-                           print("<pre>".print_r($res,true)."</pre>");
-                          ?>
                           <div class="clearfix">
-                            <!-- <button class="btn btn-md btn-success add-opd" data-toggle="modal" data-target="#add-opd">
-                              <i class="fa fa-plus"></i>
-                              Tambah OPD
-                            </button> -->
                           </div>
                         </div>
                         <div class="x_content">
 
-                          <table id="datatable" class="table table-striped table-bordered">
-                            <thead>
-                              <tr>
-                                <th>Nama User</th>
-                                <th>Nama Pengaju</th>
-                                <th>NIP</th>
-                                <th>Unit Kerja</th>
-                                <th>Sistem</th>
-                                <th>Kegunaan</th>
-                                <th>Aksi</th>
-                              </tr>
-                            </thead>
+                          <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#home">Pengajuan Masuk</a></li>
+                            <li><a data-toggle="tab" href="#menu1">Revisi Pengajuan</a></li>
+                            <li><a data-toggle="tab" href="#menu2">Pengajuan Terverifikasi</a></li>
+                          </ul>
+                          <div class="tab-content">
+                            <div id="home" class="tab-pane fade in active">
+                              <br>
+                              <table id="datatable" class="table table-striped table-bordered">
+                                <thead>
+                                  <tr>
+                                    <th>Nama User</th>
+                                    <th>Nama Pengaju</th>
+                                    <th>NIP</th>
+                                    <th>Unit Kerja</th>
+                                    <th>Sistem</th>
+                                    <th>Kegunaan</th>
+                                    <th>Aksi</th>
+                                  </tr>
+                                </thead>
 
 
-                            <tbody>
-                            <?php
-                              foreach($res as $pengajuan){
-                                echo '
-                                <tr>
-                                  <td>'.$pengajuan['nama_user'].'</td>
-                                  <td>'.$pengajuan['nama'].'</td>
-                                  <td>'.$pengajuan['nip'].'</td>
-                                  <td>'.$pengajuan['nama_opd'].'</td>
-                                  <td>'.$pengajuan['sistem'].'</td>
-                                  <td>'.$pengajuan['kegunaan'].'</td>
-                                  <td>
-                                    <button class="btn btn-sm" data-toggle="modal" data-target="#detail-pengajuan" onclick="getDetailPengajuan('.$pengajuan['id'].')">
-                                        <i class="fa fa-info" data-toggle="tooltip" data-placement="top" title="detail"></i>
-                                    </button>
-                                    <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Validasi">
-                                        <i class="fa fa-check"></i>
-                                    </button>
-                                    <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Beri Pesan">
-                                        <i class="fa fa-comment"></i>
-                                    </button>
-                                    <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                  </td>
-                              </tr>
-                                
-                                ';
-                              }
-                            ?>
-                                
-                            </tbody>
-                          </table>
-
+                                <tbody>
+                                <?php
+                                  foreach($res as $pengajuan){
+                                    echo '
+                                    <tr>
+                                      <td>'.$pengajuan['nama_user'].'</td>
+                                      <td>'.$pengajuan['nama'].'</td>
+                                      <td>'.$pengajuan['nip'].'</td>
+                                      <td>'.$pengajuan['nama_opd'].'</td>
+                                      <td>'.$pengajuan['sistem'].'</td>
+                                      <td>'.$pengajuan['kegunaan'].'</td>
+                                      <td>
+                                        <button class="btn btn-sm" data-toggle="modal" data-target="#detail-pengajuan" onclick="getDetailPengajuan('.$pengajuan['id'].')">
+                                            <i class="fa fa-info" data-toggle="tooltip" data-placement="top" title="detail"></i>
+                                        </button>
+                                        <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Validasi">
+                                            <i class="fa fa-check"></i>
+                                        </button>
+                                        <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Beri Pesan">
+                                            <i class="fa fa-comment"></i>
+                                        </button>
+                                        <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                      </td>
+                                  </tr>
+                                    
+                                    ';
+                                  }
+                                ?>
+                                    
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
