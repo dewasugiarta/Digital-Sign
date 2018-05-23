@@ -3,11 +3,17 @@
 
   $db = new Database;
   $db->connect();
-  $db->select('opd', 'id_opd,nama_opd,alamat_opd,kepala_opd,telepon_opd,email_opd');
+
+  $column = 'pengajuan.id,user.nama as nama_user,pengajuan.nama,pengajuan.nip,'.
+            'pengajuan.instansi,'.
+            'pengajuan.kegunaan,pengajuan.sistem, pengajuan.status, opd.nama_opd';
+  
+  $db->select('pengajuan',$column,'user on pengajuan.iduser=user.iduser JOIN opd ON pengajuan.id_opd=opd.id_opd');
   $res = $db->getResult();
+ 
 ?>
 
-<script type="text/javascript" src="src/js/opd.js"></script>
+<script type="text/javascript" src="src/js/penerbitan-admin.js"></script>
           <!-- page content -->
               <div class="right_col" role="main">
                 <div class="">
@@ -35,7 +41,9 @@
                       <div class="x_panel">
                         <div class="x_title">
                           <h2>Daftar Rekomendasi dan Pengajuan</h2>
-
+                          <?php
+                           print("<pre>".print_r($res,true)."</pre>");
+                          ?>
                           <div class="clearfix">
                             <!-- <button class="btn btn-md btn-success add-opd" data-toggle="modal" data-target="#add-opd">
                               <i class="fa fa-plus"></i>
@@ -60,72 +68,36 @@
 
 
                             <tbody>
+                            <?php
+                              foreach($res as $pengajuan){
+                                echo '
                                 <tr>
-                                    <td>Sukma</td>
-                                    <td>Made</td>
-                                    <td>12312312312</td>
-                                    <td>Dinas xxx</td>
-                                    <td>Tata Naskah Dinas</td>
-                                    <td>Proteksi Email & Tanda tangan elektronik</td>
-                                    <td>
-                                        <button class="btn btn-sm" data-toggle="modal" data-target="#detail-pengajuan">
-                                            <i class="fa fa-info" data-toggle="tooltip" data-placement="top" title="detail"></i>
-                                        </button>
-                                        <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Validasi">
-                                            <i class="fa fa-check"></i>
-                                        </button>
-                                        <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Beri Pesan">
-                                            <i class="fa fa-comment"></i>
-                                        </button>
-                                        <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Sukma</td>
-                                    <td>Made</td>
-                                    <td>12312312312</td>
-                                    <td>Dinas xxx</td>
-                                    <td>Tata Naskah Dinas</td>
-                                    <td>Proteksi Email & Tanda tangan elektronik</td>
-                                    <td>
-                                        <button class="btn btn-sm" data-toggle="modal" data-target="#detail-pengajuan">
-                                            <i class="fa fa-info" data-toggle="tooltip" data-placement="top" title="detail"></i>
-                                        </button>
-                                        <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Validasi">
-                                            <i class="fa fa-check"></i>
-                                        </button>
-                                        <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Beri Pesan">
-                                            <i class="fa fa-comment"></i>
-                                        </button>
-                                        <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Sukma</td>
-                                    <td>Made</td>
-                                    <td>12312312312</td>
-                                    <td>Dinas xxx</td>
-                                    <td>Tata Naskah Dinas</td>
-                                    <td>Proteksi Email & Tanda tangan elektronik</td>
-                                    <td>
-                                        <button class="btn btn-sm" data-toggle="modal" data-target="#detail-pengajuan">
-                                            <i class="fa fa-info" data-toggle="tooltip" data-placement="top" title="detail"></i>
-                                        </button>
-                                        <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Validasi">
-                                            <i class="fa fa-check"></i>
-                                        </button>
-                                        <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Beri Pesan">
-                                            <i class="fa fa-comment"></i>
-                                        </button>
-                                        <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                                  <td>'.$pengajuan['nama_user'].'</td>
+                                  <td>'.$pengajuan['nama'].'</td>
+                                  <td>'.$pengajuan['nip'].'</td>
+                                  <td>'.$pengajuan['nama_opd'].'</td>
+                                  <td>'.$pengajuan['sistem'].'</td>
+                                  <td>'.$pengajuan['kegunaan'].'</td>
+                                  <td>
+                                    <button class="btn btn-sm" data-toggle="modal" data-target="#detail-pengajuan" onclick="getDetailPengajuan('.$pengajuan['id'].')">
+                                        <i class="fa fa-info" data-toggle="tooltip" data-placement="top" title="detail"></i>
+                                    </button>
+                                    <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Validasi">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                    <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Beri Pesan">
+                                        <i class="fa fa-comment"></i>
+                                    </button>
+                                    <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                  </td>
+                              </tr>
+                                
+                                ';
+                              }
+                            ?>
+                                
                             </tbody>
                           </table>
 
@@ -151,23 +123,21 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                     <ul class="list-group">
-                        <li class="list-group-item"><label class="lgi-label">Nama User</label>I.B GDE AGUNG SUTHA WIJAYA. SE.,MM</li>
-                        <li class="list-group-item"><label class="lgi-label">Nama Pengaju</label>I KETUT AGUS INDRA DIATMIKA, S.Kom</li>
-                        <li class="list-group-item"><label class="lgi-label">NIP</label>198401072009031005</li>
-                        <li class="list-group-item"><label class="lgi-label">NIK</label>517020701840001</li>
-                        <li class="list-group-item"><label class="lgi-label">Pangkat/Golongan</label>Penata/IIIc</li>
-                        <li class="list-group-item"><label class="lgi-label">Jabatan</label>Kepala Seksi Keamanan Informasi dan Persandian</li>
-                        <li class="list-group-item"><label class="lgi-label">Instansi</label>Pemerintah Kota Denpasar</li>
-                        <li class="list-group-item"><label class="lgi-label">Kota</label>Denpasar</li>
-                        <li class="list-group-item"><label class="lgi-label">Provinsi</label>Bali</li>
-                        <li class="list-group-item"><label class="lgi-label">Unit Kerja</label>Dinas Komunikasi, Informatika dan Statistik</li>
-                        <li class="list-group-item"><label class="lgi-label">Email</label>test@test.com</li>
-                        <li class="list-group-item"><label class="lgi-label">Kegunaan</label>Proteksi Email & Tanda Tangan Elektronik</li>
-                        <li class="list-group-item"><label class="lgi-label">Sistem</label>Tata Naskah Dinas</li>
-                        <li class="list-group-item"><label class="lgi-label">Scan KTP</label><button class="btn btn-success"><i class="fa fa-search"></i> Preview </button></li>
-                        <li class="list-group-item"><label class="lgi-label">Surat rekomendasi</label><button class="btn btn-success"><i class="fa fa-search"></i> Preview</button></li>
-
-                    
+                        <li class="list-group-item" ><label class="lgi-label">Nama User</label><span id="nama-user"></span></li>
+                        <li class="list-group-item" ><label class="lgi-label">Nama Pengaju</label><span id="nama-pengaju"></span></li>
+                        <li class="list-group-item" ><label class="lgi-label">NIP</label><span id="nip"></span></li>
+                        <li class="list-group-item" ><label class="lgi-label">NIK</label><span id="nik"></span></li>
+                        <li class="list-group-item" ><label class="lgi-label">Pangkat/Golongan</label><span id="pangkat-golongan"></span></li>
+                        <li class="list-group-item" ><label class="lgi-label">Jabatan</label><span id="jabatan"></span></li>
+                        <li class="list-group-item" ><label class="lgi-label">Instansi</label><span id="instansi"></span></li>
+                        <li class="list-group-item" ><label class="lgi-label">Kota</label><span id="kota"></span></li>
+                        <li class="list-group-item" ><label class="lgi-label">Provinsi</label><span id="provinsi"></span></li>
+                        <li class="list-group-item" ><label class="lgi-label">Unit Kerja</label><span id="opd"></span></li>
+                        <li class="list-group-item" ><label class="lgi-label">Email</label><span id="email"></span></li>
+                        <li class="list-group-item" ><label class="lgi-label">Kegunaan</label><span id="kegunaan"></span></li>
+                        <li class="list-group-item" ><label class="lgi-label">Sistem</label><span id="sistem"></span></li>
+                        <li class="list-group-item" ><label class="lgi-label">Scan KTP</label><button id="ktp" onclick="open_ktp(this.value)" class="btn btn-success"><i class="fa fa-search"></i> Preview </button></li>
+                        <li class="list-group-item" ><label class="lgi-label">Surat rekomendasi</label><button id="surat" onclick="open_surat(this.value)" class="btn btn-success"><i class="fa fa-search"></i> Preview</button></li>
                     </ul>
                   
                 </div>
