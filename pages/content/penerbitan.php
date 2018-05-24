@@ -8,7 +8,7 @@
             'pengajuan.instansi,'.
             'pengajuan.kegunaan,pengajuan.sistem, pengajuan.status, opd.nama_opd';
   
-  $db->select('pengajuan',$column,'user on pengajuan.iduser=user.iduser JOIN opd ON pengajuan.id_opd=opd.id_opd');
+  $db->select('pengajuan',$column,'user on pengajuan.iduser=user.iduser JOIN opd ON pengajuan.id_opd=opd.id_opd','status=0');
   $res = $db->getResult();
  
 ?>
@@ -47,12 +47,14 @@
                         <div class="x_content">
 
                           <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#home">Pengajuan Masuk</a></li>
-                            <li><a data-toggle="tab" href="#menu1">Revisi Pengajuan</a></li>
-                            <li><a data-toggle="tab" href="#menu2">Pengajuan Terverifikasi</a></li>
+                            <li class="active"><a data-toggle="tab" href="#m0">Pengajuan Masuk</a></li>
+                            
+                            <li><a data-toggle="tab" href="#m1" onclick="show_pengajuan(1)">Revisi Pengajuan</a></li>
+                            <li><a data-toggle="tab" href="#m2" onclick="show_pengajuan(2)">Revisi Masuk</a></li>
+                            <li><a data-toggle="tab" href="#m3" onclick="show_pengajuan(3)">Pengajuan Terverifikasi</a></li>
                           </ul>
                           <div class="tab-content">
-                            <div id="home" class="tab-pane fade in active">
+                            <div id="m0" class="tab-pane fade in active">
                               <br>
                               <table id="datatable" class="table table-striped table-bordered">
                                 <thead>
@@ -70,38 +72,47 @@
 
                                 <tbody>
                                 <?php
-                                  foreach($res as $pengajuan){
-                                    echo '
-                                    <tr>
-                                      <td>'.$pengajuan['nama_user'].'</td>
-                                      <td>'.$pengajuan['nama'].'</td>
-                                      <td>'.$pengajuan['nip'].'</td>
-                                      <td>'.$pengajuan['nama_opd'].'</td>
-                                      <td>'.$pengajuan['sistem'].'</td>
-                                      <td>'.$pengajuan['kegunaan'].'</td>
-                                      <td>
-                                        <button class="btn btn-sm" data-toggle="modal" data-target="#detail-pengajuan" onclick="getDetailPengajuan('.$pengajuan['id'].')">
-                                            <i class="fa fa-info" data-toggle="tooltip" data-placement="top" title="detail"></i>
-                                        </button>
-                                        <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Validasi">
-                                            <i class="fa fa-check"></i>
-                                        </button>
-                                        <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Beri Pesan">
-                                            <i class="fa fa-comment"></i>
-                                        </button>
-                                        <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                      </td>
-                                  </tr>
-                                    
-                                    ';
+                                  if(count($res)>0){
+                                    foreach($res as $pengajuan){
+                                      echo '
+                                      <tr>
+                                        <td>'.$pengajuan['nama_user'].'</td>
+                                        <td>'.$pengajuan['nama'].'</td>
+                                        <td>'.$pengajuan['nip'].'</td>
+                                        <td>'.$pengajuan['nama_opd'].'</td>
+                                        <td>'.$pengajuan['sistem'].'</td>
+                                        <td>'.$pengajuan['kegunaan'].'</td>
+                                        <td>
+                                          <button class="btn btn-sm" data-toggle="modal" data-target="#detail-pengajuan" onclick="getDetailPengajuan('.$pengajuan['id'].')">
+                                              <i class="fa fa-info" data-toggle="tooltip" data-placement="top" title="detail"></i>
+                                          </button>
+                                          <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Validasi" onclick="validasi('.$pengajuan['id'].')">
+                                              <i class="fa fa-check"></i>
+                                          </button>
+                                          <button class="btn btn-sm"  data-toggle="tooltip" data-placement="top" title="Beri Pesan" onclick="getIdKomentar('.$pengajuan['id'].')">
+                                              <i class="fa fa-comment"></i>
+                                          </button>
+                                          <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
+                                              <i class="fa fa-trash"></i>
+                                          </button>
+                                        </td>
+                                      </tr>
+                                      
+                                      ';
+                                    }
+                                  }else{
+                                    echo '<h2>KOSONG</h2>';
                                   }
                                 ?>
                                     
                                 </tbody>
                               </table>
                             </div>
+                            
+                            <div id="m1" class="tab-pane fade in"></div>
+                            <div id="m2" class="tab-pane fade in"></div>
+                            <div id="m3" class="tab-pane fade in"></div>
+                           
                           </div>
                         </div>
                       </div>
@@ -141,6 +152,39 @@
                         <li class="list-group-item" ><label class="lgi-label">Scan KTP</label><button id="ktp" onclick="open_ktp(this.value)" class="btn btn-success"><i class="fa fa-search"></i> Preview </button></li>
                         <li class="list-group-item" ><label class="lgi-label">Surat rekomendasi</label><button id="surat" onclick="open_surat(this.value)" class="btn btn-success"><i class="fa fa-search"></i> Preview</button></li>
                     </ul>
+                  
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="submit" name="submit" class="btn btn-success">Simpan</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                  </form>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="modal" id="add-comment">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Tambah Pesan</h4>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form action="process/admin/update-penerbitan.php" id="comment-form" method="POST" onsubmit="return add_comment()">
+                      <div class="form-group">
+                        <input type="hidden" name="id" id="id-hidden">
+                        <input type="hidden" name="status" value="1">
+                        <label for="">Tambahkan Pesan untuk User</label>
+                        <textarea name="keterangan" cols="30" rows="4" class="form-control" required></textarea>
+                      </div>
                   
                 </div>
 
