@@ -40,8 +40,8 @@
 
 
                                 <label class="grey-text">NIP</label>
-                                <input type="text" id="" name="nip" class="form-control">
-
+                                <input type="text" onchange="validateNIP(this.value)" id="nip" name="nip" class="form-control">
+                                <p id="messageNIP" style="font-color:red;"></p>
                                 <br>
 
                                 <label class="grey-text">NIK</label>
@@ -126,7 +126,7 @@
                                 <br>
                                 <br>
                                 <div class="text-center mt-4">
-                                    <input class="btn btn-primary" type="submit" name="submit" value="Submit">
+                                    <input id="btnSubmit" class="btn btn-primary" type="submit" name="submit" value="Submit">
                                     <button class="btn btn-danger" type="batal">Batal</button>
                                 </div>
 
@@ -138,6 +138,22 @@
                 <!-- form merekomendasikan -->
             </div>
         </div>
-
+        <script type="text/javascript">
+        //validate userId
+        function validateNIP(nip){
+            $.post('process/user/validatePenerbitanNIP.php',{
+                nip : nip
+            }, function(data){
+                console.log(data);
+                if(data > 0){
+                    $('#messageNIP').html('data sudah ada!');
+                    $('#btnSubmit').prop('disabled',true);
+                }else {
+                    $('#messageNIP').html('');
+                    $('#btnSubmit').prop('disabled',false);
+                }
+            })
+        }
+        </script>
     </div>
 </div>

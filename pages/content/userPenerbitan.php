@@ -111,7 +111,8 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form action="process/admin/update-penerbitan.php" method="POST">
+                <form action="process/user/userUpdatePenerbitan.php" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" id="updateId" name="updateId" readonly>
                     <div class="form-group">
                         <label >Nama Lengkap</label>
                         <input id="updateNama" type="text" class="form-control" name="updateNama" placeholder="Nama Lengkap" readonly required>
@@ -177,13 +178,13 @@
                         <label>Berkas KTP</label>
                         <br>
                         <button id="previewKTP" type="button" class="btn btn-success" onclick="berkasView(this.dataset.id,this.dataset.nip,this.dataset.get)" style="margin-bottom:10px"><i class="fa fa-search"></i>Preview</button>
-                        <input type="file" id="updateKTP" name="updateKTP" onchange="checkSizeKtp()" class="form-control" accept="image/jpeg, image/jpg"></input>
+                        <input type="file" id="updateKTP" name="updateKTP" onchange="checkSizeKtp()" class="form-control" accept="image/jpeg, image/jpg" required></input>
                     </div>
                     <div class="form-group">
                         <label>Berkas Surat Rekomendasi</label>
                         <br>
                         <button id="previewSurat" type="button" class="btn btn-success" onclick="berkasView(this.dataset.id,this.dataset.nip,this.dataset.get)" style="margin-bottom:10px"><i class="fa fa-search"></i>Preview</button>
-                        <input type="file" id="updateSurat" name="updateSurat" onchange="checkPdf()" class="form-control" accept="application/pdf"></input>
+                        <input type="file" id="updateSurat" name="updateSurat" onchange="checkPdf()" class="form-control" accept="application/pdf" required></input>
                     </div>
             </div>
             <!-- Modal footer -->

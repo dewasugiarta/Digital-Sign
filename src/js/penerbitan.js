@@ -7,6 +7,7 @@ function getDetailUser(id){
         data = JSON.parse(data)
         data = data[0]
         console.log(data);
+        $('input[name=updateId]').val(data.id);
         $('input[name=updateNama]').val(data.nama).prop('readonly', true);
         $('input[name=updateNIP]').val(data.nip).prop('readonly', true);
         $('input[name=updateNIK').val(data.nik).prop('readonly', true);
@@ -35,7 +36,6 @@ function getDetailUser(id){
 function onUpdate(checkboxElem) {
     if (checkboxElem.checked) {
         $('#updateNama').prop('readonly', false);
-        $('#updateNIP').prop('readonly', false);
         $('#updateNIK').prop('readonly', false);
         $('#updateJabatan').prop('readonly', false);
         $('#updatePangkat').prop('readonly', false);
@@ -51,7 +51,6 @@ function onUpdate(checkboxElem) {
         $('#btnUpdate').show();
     } else {
         $('#updateNama').prop('readonly', true);
-        $('#updateNIP').prop('readonly', true);
         $('#updateNIK').prop('readonly', true);
         $('#updateJabatan').prop('readonly', true);
         $('#updatePangkat').prop('readonly', true);
@@ -70,4 +69,57 @@ function onUpdate(checkboxElem) {
 
 function berkasView(id,nip,get){
     window.open("pages/content/userBerkasView.php?id="+id+"&nip="+nip+"&get="+get)
+}
+
+
+function checkSizeKtp(){
+    var file = $("#updateKTP").prop('files')[0]
+    let fileSize = file.size
+    let fileName = file.name
+    let fileExt = fileName.split('.')
+    fileExt = fileExt[fileExt.length-1]
+
+    //allowed datatype
+    let allowedExt = ['jpg','jpeg']
+    console.log(file)
+
+    //verify if filesize not exceeding 2mb
+    if(fileSize >2000000){
+        alert('Ukuran file melebihi batas!')
+        $("#updateKTP").val('');
+        return false;
+    }else if(!allowedExt.includes(fileExt)){
+        //verify if datatype allowed
+        alert('Pastikan format file .jpg atau .jpeg')
+        $("#updateKTP").val('');
+        return false;
+    }else{
+        return true;
+    }
+}
+
+function checkPdf(){
+    var file = $("#updateSurat").prop('files')[0]
+    let fileSize = file.size
+    let fileName = file.name
+    let fileExt = fileName.split('.')
+    fileExt = fileExt[fileExt.length-1]
+
+    //allowed datatype
+    let allowedExt = ['pdf']
+    console.log(file)
+
+    //verify if filesize not exceeding 2mb
+    if(fileSize >2000000){
+        alert('Ukuran file melebihi batas!')
+        $("#updateSurat").val('');
+        return false;
+    }else if(!allowedExt.includes(fileExt)){
+        //verify if datatype allowed
+        alert('Pastikan format file .pdf')
+        $("#updateSurat").val('');
+        return false;
+    }else{
+        return true;
+    }
 }
