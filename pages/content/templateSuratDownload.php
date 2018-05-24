@@ -10,8 +10,12 @@
 
 
   //verify if data exist
+  $fileDate = '';
+  $fileTime = '';
+  
   if(count($res)){
     $fileSource = $res['source'].$res['nama_template'];
+    
     $fileDate = $res['upload_date'];
     $fileTime = $res['upload_time'];
   }else{
