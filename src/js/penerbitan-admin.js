@@ -110,7 +110,7 @@ function show_pengajuan(status){
                         <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Validasi" onclick="validasi(${item.id})">
                             <i class="fa fa-check"></i>
                         </button>
-                        <button class="btn btn-sm"  data-toggle="tooltip" data-placement="top" title="Beri Pesan" onclick="getIdKomentar('${item.id})">
+                        <button class="btn btn-sm"  data-toggle="tooltip" data-placement="top" title="Beri Pesan" onclick="getIdKomentar(${item.id})">
                             <i class="fa fa-comment"></i>
                         </button>
                         <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">

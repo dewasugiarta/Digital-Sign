@@ -8,6 +8,8 @@
                 'pengajuan.id, pengajuan.nama, pengajuan.nip, opd.nama_opd, pengajuan.tanggal, pengajuan.status',
                 'opd ON pengajuan.id_opd=opd.id_opd','iduser="'.$iduser.'"','tanggal DESC');
   $res = $db->getResult();
+
+  $status = ['Baru','Revisi','Sudah Revisi','Diterima'];
 ?>
 <div class="right_col" role="main">
     <div class="">
@@ -50,18 +52,19 @@
 
                                             if($row > 0 ){
                                                 foreach($res as $data){
+                                                    $editStatus = $data['status']==3?'disabled':'';
                                                     echo '
                                                     <tr>
                                                         <td>'.$data['nama'].'</td>
                                                         <td>'.$data['nip'].'</td>
                                                         <td>'.$data['nama_opd'].'</td>
                                                         <td>'.$data['tanggal'].'</td>
-                                                        <td>Status</td>
+                                                        <td>'.$status[$data['status']].'</td>
                                                         <td>
-                                                            <button class="btn btn-sm" onclick="getDetailUser('.$data['id'].')">
+                                                            <button class="btn btn-sm" onclick="getDetailUser('.$data['id'].') " '.$editStatus.'>
                                                                 <i class="fa fa-edit"></i>
                                                             </button>
-                                                            <button class="btn btn-sm" onclick="deleteUser('.$data['id'].','.$data['nama'].')">
+                                                            <button class="btn btn-sm" onclick="deleteUser('.$data['id'].','.$data['nama'].') " '.$editStatus.'>
                                                                 <i class="fa fa-times"></i>
                                                             </button>
                                                         </td>
