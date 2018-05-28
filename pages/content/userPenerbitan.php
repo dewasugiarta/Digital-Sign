@@ -6,10 +6,10 @@
   $db->connect();
   $db->select('pengajuan',
                 'pengajuan.id, pengajuan.nama, pengajuan.nip, opd.nama_opd, pengajuan.tanggal, pengajuan.status',
-                'opd ON pengajuan.id_opd=opd.id_opd','iduser="'.$iduser.'"','tanggal DESC');
+                'opd ON pengajuan.id_opd=opd.id_opd','iduser="'.$iduser.'" AND status=0','tanggal DESC');
   $res = $db->getResult();
 
-  $status = ['Baru','Revisi','Sudah Revisi','Diterima'];
+  $status = ['Baru','Revisi','Proses Revisi','Diterima'];
 ?>
 <div class="right_col" role="main">
     <div class="">
@@ -34,7 +34,77 @@
                             </div>
                         </div>
                         <div class="x_content">
-                            <div class="table-responsive">
+                            <ul class="nav nav-tabs">
+                              <li class="active"><a data-toggle="tab" href="#m0">Pengajuan Baru</a></li>
+
+                              <li><a data-toggle="tab" href="#m1" onclick="show_pengajuan(1)">Pengajuan Direvisi</a></li>
+                              <li><a data-toggle="tab" href="#m2" onclick="show_pengajuan(2)">Proses Revisi</a></li>
+                              <li><a data-toggle="tab" href="#m3" onclick="show_pengajuan(3)">Pengajuan Terverifikasi</a></li>
+                            </ul>
+                            <div class="tab-content">
+                              <div id="m0" class="tab-pane fade in active">
+                                <br>
+                                <table id="datatable" class="table table-striped table-bordered">
+                                  <thead>
+                                    <tr>
+                                        <th>Nama Direkomendasikan</th>
+                                        <th>NIP</th>
+                                        <th>Unit Kerja</th>
+                                        <th>Tangal Pengajuan</th>
+                                        <th>Status</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                  </thead>
+
+
+                                  <tbody>
+                                  <?php
+                                    if(count($res)>0){
+                                      foreach($res as $pengajuan){
+                                           $editStatus = $pengajuan['status']==3?'disabled':'';
+                                           $keterangan = $pengajuan['status']!=1?'none':'';
+                                        echo '
+                                        <tr>
+                                          <td>'.$pengajuan['nama'].'</td>
+                                          <td>'.$pengajuan['nip'].'</td>
+                                          <td>'.$pengajuan['nama_opd'].'</td>
+                                          <td>'.$pengajuan['tanggal'].'</td>
+                                          <td>'.$status[$pengajuan['status']].'
+                                              <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Keterangan Revisi" style="display:'.$keterangan.'" onclick="getKeterangan('.$pengajuan['id'].')">
+                                                <i class="fa fa-info"></i>
+                                              </button>
+                                          </td>
+                                          <td>
+                                          <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Edit data" onclick="getDetailUser('.$pengajuan['id'].')" '.$editStatus.'>
+                                            <i class="fa fa-edit"></i>
+                                          </button>
+                                          <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus Data" onclick="deletePenerbitan(\''.$pengajuan['id'].'\',\''.$pengajuan['nama'].'\')" '.$editStatus.'>
+                                            <i class="fa fa-times"></i>
+                                          </button>
+                                          </td>
+                                        </tr>
+
+                                        ';
+                                      }
+                                    }else{
+                                      echo '<h2>KOSONG</h2>';
+                                    }
+                                  ?>
+
+                                  </tbody>
+                                </table>
+                              </div>
+
+                              <div id="m1" class="tab-pane fade in"></div>
+                              <div id="m2" class="tab-pane fade in"></div>
+                              <div id="m3" class="tab-pane fade in"></div>
+
+                            </div>
+
+
+
+
+                            <!-- <div class="table-responsive">
                                 <table id="datatable" class="table table-striped table-bordered" style="white-space: nowrap;">
                                     <thead>
                                         <tr>
@@ -48,48 +118,48 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                            $row = $db->numRows($res);
-
-                                            if($row > 0 ){
-                                                foreach($res as $data){
-                                                    $editStatus = $data['status']==3?'disabled':'';
-                                                    echo '
-                                                    <tr>
-                                                        <td>'.$data['nama'].'</td>
-                                                        <td>'.$data['nip'].'</td>
-                                                        <td>'.$data['nama_opd'].'</td>
-                                                        <td>'.$data['tanggal'].'</td>
-                                                        <td>'.$status[$data['status']].'</td>
-                                                        <td>
-                                                            <button class="btn btn-sm" onclick="getDetailUser('.$data['id'].') " '.$editStatus.'>
-                                                                <i class="fa fa-edit"></i>
-                                                            </button>
-                                                            <button class="btn btn-sm" onclick="deleteUser('.$data['id'].','.$data['nama'].') " '.$editStatus.'>
-                                                                <i class="fa fa-times"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    ';
-                                                }
-                                            }else {
-                                                echo '
-                                                <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>
-
-                                                    </td>
-                                                </tr>
-                                                ';
-                                            }
+                                            // $row = $db->numRows($res);
+                                            //
+                                            // if($row > 0 ){
+                                            //     foreach($res as $data){
+                                            //         $editStatus = $data['status']==3?'disabled':'';
+                                            //         echo '
+                                            //         <tr>
+                                            //             <td>'.$data['nama'].'</td>
+                                            //             <td>'.$data['nip'].'</td>
+                                            //             <td>'.$data['nama_opd'].'</td>
+                                            //             <td>'.$data['tanggal'].'</td>
+                                            //             <td>'.$status[$data['status']].'</td>
+                                            //             <td>
+                                            //                 <button class="btn btn-sm" onclick="getDetailUser('.$data['id'].')" '.$editStatus.'>
+                                            //                     <i class="fa fa-edit"></i>
+                                            //                 </button>
+                                            //                 <button class="btn btn-sm" onclick="deletePenerbitan(\''.$data['id'].'\',\''.$data['nama'].'\')">
+                                            //                     <i class="fa fa-times"></i>
+                                            //                 </button>
+                                            //             </td>
+                                            //         </tr>
+                                            //         ';
+                                            //     }
+                                            // }else {
+                                            //     echo '
+                                            //     <tr>
+                                            //         <td></td>
+                                            //         <td></td>
+                                            //         <td></td>
+                                            //         <td></td>
+                                            //         <td></td>
+                                            //         <td>
+                                            //
+                                            //         </td>
+                                            //     </tr>
+                                            //     ';
+                                            // }
 
                                         ?>
                                     </tbody>
                                 </table>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -200,4 +270,29 @@
     </div>
 </div>
 <!-- end modal update -->
+
+
+<div class="modal" id="display-keterangan">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">keterangan Revisi</h4>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div>
+                    <p id="keterangan"></p>
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modal keterangan -->
+
+
 <script type="text/javascript" src="src/js/penerbitan.js"></script>
