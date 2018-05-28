@@ -113,7 +113,7 @@ function show_pengajuan(status){
                         <button class="btn btn-sm"  data-toggle="tooltip" data-placement="top" title="Beri Pesan" onclick="getIdKomentar(${item.id})">
                             <i class="fa fa-comment"></i>
                         </button>
-                        <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
+                        <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" onclick="deletePengajuan(${item.id})" title="Hapus">
                             <i class="fa fa-trash"></i>
                         </button>
                         </td>
@@ -131,6 +131,15 @@ function show_pengajuan(status){
 }
 
 
+function deletePengajuan(id){
+    let conf = confirm('Hapus pengajuan ini?')
 
-
-        
+    if(conf){
+        $.post('./process/admin/delete-penerbitan.php',{
+            id:id
+        }, function(data){
+            data = JSON.parse(data)
+            console.log(data)
+        })
+    }
+}

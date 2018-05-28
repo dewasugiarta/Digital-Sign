@@ -92,7 +92,7 @@
                                           <button class="btn btn-sm"  data-toggle="tooltip" data-placement="top" title="Beri Pesan" onclick="getIdKomentar('.$pengajuan['id'].')">
                                               <i class="fa fa-comment"></i>
                                           </button>
-                                          <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
+                                          <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" onclick="deletePengajuan('.$pengajuan['id'].')" title="Hapus">
                                               <i class="fa fa-trash"></i>
                                           </button>
                                         </td>
