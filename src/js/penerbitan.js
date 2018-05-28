@@ -123,3 +123,124 @@ function checkPdf(){
         return true;
     }
 }
+
+
+function deletePenerbitan(id,nama){
+    let conf = confirm('Hapus item \nAtas Nama :'+nama+' dari daftar User?');
+    if(conf === true){
+        $.post('./process/user/deletePenerbitanProcess.php',{
+            id:id
+        }, function(data){
+            data = JSON.parse(data)
+            data = data[0]
+            if(JSON.parse(data)===1){
+                alert('Berhasil menghapus!')
+                location.reload();
+            }else{
+                alert('Gagal menghapus!')
+            }
+        })
+    }
+}
+
+function show_pengajuan(status){
+    $.get('./process/user/readPenerbitanByStatus.php',{
+        status:status
+    }, function(data){
+        data = JSON.parse(data)
+        console.log(data)
+            let head = `
+                            <br>
+                            <table id="datatable" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                <th>Nama Direkomendasikan</th>
+                                <th>NIP</th>
+                                <th>Unit Kerja</th>
+                                <th>Tangal Pengajuan</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                        `
+            let foot = ` </tbody>
+                         </table>`
+            if(data.length<1){
+                var row = '<h2>KOSONG</h2>'
+            }else{
+
+                switch (data[0]['status']) {
+                    case '0':
+                        data[0].nameStatus = 'Baru'
+                        break;
+                    case '1':
+                        data[0].nameStatus = 'Revisi'
+                        break;
+                    case '2':
+                        data[0].nameStatus = 'Proses Revisi'
+                        break;
+                    case '3':
+                        data[0].nameStatus = 'Diterima'
+                        break;
+                    default:
+                    data[0].nameStatus = ''
+                    break;
+
+                }
+
+                if(data[0]['status'] == 3){
+                    data[0].disable = 'disabled'
+                }else{
+                    data[0].disable = ''
+                }
+                if(data[0]['status'] != 1){
+                    data[0].display = 'none'
+                }else{
+                    data[0].display = ''
+                }
+                row = data.map(item=>{
+                return (
+                    `
+                        <tr>
+                            <td>${item.nama}</td>
+                            <td>${item.nip}</td>
+                            <td>${item.nama_opd}</td>
+                            <td>${item.tanggal}</td>
+                            <td>${item.nameStatus}
+                                  <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Keterangan Revisi" style="display:${item.display}" onclick="getKeterangan(${item.id})">
+                                    <i class="fa fa-info"></i>
+                                  </button>
+                              </td>
+                              <td>
+                              <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Edit Data" onclick="getDetailUser(${item.id})" ${item.disable}>
+                                <i class="fa fa-edit"></i>
+                              </button>
+                              <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus Data" onclick="deletePenerbitan('${item.id}','${item.nama}')" ${item.disable}>
+                                <i class="fa fa-times"></i>
+                              </button>
+                              </td>
+                        </tr>
+                    `
+
+                )
+            })
+        }
+            let table = head+row+foot
+            $("#m"+status).html(table)
+     })
+
+}
+
+function getKeterangan(id){
+    $.get('./process/user/readKeteranganRevisi.php',{
+        id:id
+    }, function(data){
+        data = JSON.parse(data)
+        data = data[0]
+        console.log(data)
+
+        $('#keterangan').html(data.keterangan);
+        $('#display-keterangan').modal('show')
+    })
+}
