@@ -8,16 +8,6 @@
                 <h3>Daftar Pengajuan</h3>
             </div>
 
-            <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Go!</button>
-                        </span>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="container">
             <div class="row">
@@ -34,18 +24,18 @@
                             <!-- Default form contact -->
                             <form action="process/user/pengajuanPenerbitanProses.php" enctype="multipart/form-data" method="post">
                                 <label class="grey-text">Nama</label>
-                                <input type="text" id="" name="nama" class="form-control">
+                                <input type="text" id="" name="nama" class="form-control" required>
 
                                 <br>
 
 
                                 <label class="grey-text">NIP</label>
-                                <input type="text" onchange="validateNIP(this.value)" id="nip" name="nip" class="form-control">
+                                <input type="text" onchange="validateNIP(this.value)" id="nip" name="nip" class="form-control" required>
                                 <p id="messageNIP" style="font-color:red;"></p>
                                 <br>
 
                                 <label class="grey-text">NIK</label>
-                                <input type="text" id="" name="nik" class="form-control">
+                                <input type="text" id="" name="nik" class="form-control" required>
 
                                 <br>
 
@@ -55,20 +45,20 @@
                                         <td><label  class="grey-text">Email</label></td>
                                     </tr>
                                     <tr>
-                                        <td style="padding-right: 10px; "><input type="text" id="" name="pangkat" class="form-control"></input></td>
-                                        <td style="padding-right: 10px; "><input type="email" id="" name="email" class="form-control"></input></td>
+                                        <td style="padding-right: 10px; "><input type="text" id="" name="pangkat" class="form-control" required></input></td>
+                                        <td style="padding-right: 10px; "><input type="email" id="" name="email" class="form-control" required></input></td>
                                     </tr>
                                 </table>
 
                                 <br>
 
                                 <label class="grey-text">Jabatan</label>
-                                <input type="text" id="" name="jabatan" class="form-control"></input>
+                                <input type="text" id="" name="jabatan" class="form-control" required></input>
 
                                 <br>
 
                                 <label  class="grey-text">Instansi</label>
-                                <input type="text" id="" name="instansi" class="form-control"></input>
+                                <input type="text" id="" name="instansi" class="form-control" required></input>
 
                                 <br>
 
@@ -78,23 +68,23 @@
                                         <td><label  class="grey-text">Provinsi</label></td>
                                     </tr>
                                     <tr>
-                                        <td style="padding-right: 27px;"><input type="text" id="" name="kota" class="form-control"></input></td>
-                                        <td><input type="text" id="" name="provinsi" class="form-control"></input></td>
+                                        <td style="padding-right: 27px;"><input type="text" id="" name="kota" class="form-control" required></input></td>
+                                        <td><input type="text" id="" name="provinsi" class="form-control" required></input></td>
                                     </tr>
                                 </table>
 
                                 <br>
 
                                 <label>Unit Kerja</label>
-                                <select class="form-control" name="opd">
-                                    <option value="" selected>Pilih Unit Kerja</option>
+                                <select class="form-control" name="opd" readonly>
                                     <?php
+                                        $iduser = $_SESSION['iduser'];
                                         $dbOpd = new Database;
                                         $dbOpd->connect();
-                                        $dbOpd->select('opd','id_opd,nama_opd',NULL,NULL,'id_opd DESC');
+                                        $dbOpd->select('user','user.id_opd,opd.nama_opd','opd ON user.id_opd=opd.id_opd','iduser="'.$iduser.'"');
                                         $resOpd = $dbOpd->getResult();
                                         foreach ($resOpd as $dataOpd){
-                                            echo '<option value="'.$dataOpd['id_opd'].'">'.$dataOpd['nama_opd'].'</option>';
+                                            echo '<option value="'.$dataOpd['id_opd'].'" selected readonly>'.$dataOpd['nama_opd'].'</option>';
                                         }
                                     ?>
                                 </select>
@@ -104,11 +94,17 @@
                                 <br>
 
                                 <label class="grey-text">Sistem</label>
-                                <input type="text" id="" name="sistem" class="form-control"></input>
+                                <input type="text" id="" name="sistem" class="form-control" required></input>
                                 <br>
 
                                 <label class="grey-text">Kegunaan</label>
-                                <input type="text" id="" name="kegunaan" class="form-control"></input>
+                                <select class="form-control" name="kegunaan">
+                                    <option value="" selected>Pilih Kegunaan</option>
+                                    <option value="Proteksi Email">Proteksi Email</option>
+                                    <option value="Tanda Tangan Digital">Tanda Tangan Digital</option>
+                                    <option value="Secure Socket Layer(SSL)">Secure Socket Layer(SSL)</option>
+                                </select>
+                                <!-- <input type="text" id="" name="kegunaan" class="form-control" required></input> -->
 
                                 <br>
                                 <h4>Berkas</h4>
@@ -118,8 +114,8 @@
                                         <td><label  class="grey-text">Scan Surat Rekomendasi (PDF)</label></td>
                                     </tr>
                                     <tr>
-                                        <td style="padding-right: 27px;"><input type="file" id="ktp" name="ktp" onchange="checkSizeKtp()" class="form-control" accept="image/jpeg , image/jpg" ></input></td>
-                                        <td><input type="file" id="surat" name="surat" onchange="checkPdf()" class="form-control" accept="application/pdf"></input></td>
+                                        <td style="padding-right: 27px;"><input type="file" id="ktp" name="ktp" onchange="checkSizeKtp()" class="form-control" accept="image/jpeg , image/jpg" required></input></td>
+                                        <td><input type="file" id="surat" name="surat" onchange="checkPdf()" class="form-control" accept="application/pdf" required></input></td>
                                         <script type="text/javascript" src="src/js/checkFile.js"></script>
                                     </tr>
                                 </table>
@@ -127,7 +123,7 @@
                                 <br>
                                 <div class="text-center mt-4">
                                     <input id="btnSubmit" class="btn btn-primary" type="submit" name="submit" value="Submit">
-                                    <button class="btn btn-danger" type="batal">Batal</button>
+                                    <a href="index.php?pageid=userPenerbitan" class="btn btn-danger">Batal</a>
                                 </div>
 
                             </form>
