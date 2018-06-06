@@ -11,6 +11,8 @@
 
   $status = ['Baru','Revisi','Proses Revisi','Diterima'];
 ?>
+
+
 <div class="right_col" role="main">
     <div class="">
         <div class="page-title">
@@ -40,6 +42,7 @@
                               <li><a data-toggle="tab" href="#m1" onclick="show_pengajuan(1)">Pengajuan Direvisi</a></li>
                               <li><a data-toggle="tab" href="#m2" onclick="show_pengajuan(2)">Proses Revisi</a></li>
                               <li><a data-toggle="tab" href="#m3" onclick="show_pengajuan(3)">Pengajuan Terverifikasi</a></li>
+                              <li><a data-toggle="tab" href="#m4" >Sudah Diterbitkan</a></li>
                             </ul>
                             <div class="tab-content">
                               <div id="m0" class="tab-pane fade in active">
@@ -99,10 +102,55 @@
                               <div id="m2" class="tab-pane fade in"></div>
                               <div id="m3" class="tab-pane fade in"></div>
 
+                              <div id="m4" class="tab-pane fade in">
+                                <br>
+                                <table id="datatable" class="table table-striped table-bordered">
+                                  <thead>
+                                    <tr>
+                                        <th>Nama Direkomendasikan</th>
+                                        <th>NIP</th>
+                                        <th>Unit Kerja</th>
+                                        <th>Kegunaan</th>
+                                        <th>Sistem</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                  </thead>
+
+
+                                  <tbody>
+                                  <?php
+                                    $db->select('pengajuan',
+                                                'pengajuan.id, pengajuan.nama, pengajuan.nip, opd.nama_opd, pengajuan.tanggal, pengajuan.status, pengajuan.kegunaan, pengajuan.sistem',
+                                                'opd ON pengajuan.id_opd=opd.id_opd','iduser="'.$iduser.'" AND status=4','tanggal DESC');
+                                    $res2 = $db->getResult();
+                                    if(count($res2)>0){
+                                      foreach($res2 as $pengajuan2){
+                                        echo '
+                                        <tr>
+                                          <td>'.$pengajuan2['nama'].'</td>
+                                          <td>'.$pengajuan2['nip'].'</td>
+                                          <td>'.$pengajuan2['nama_opd'].'</td>
+                                          <td>'.$pengajuan2['kegunaan'].'</td>
+                                          <td>'.$pengajuan2['sistem'].'</td>
+                                          <td>
+                                          <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus Data" onclick="deletePenerbitan(\''.$pengajuan2['id'].'\',\''.$pengajuan2['nama'].'\')">
+                                            <i class="fa fa-times"></i>
+                                          </button>
+                                          </td>
+                                        </tr>
+
+                                        ';
+                                      }
+                                    }else{
+                                      echo '<h2>KOSONG</h2>';
+                                    }
+                                  ?>
+
+                                  </tbody>
+                                </table>
+                              </div>
+
                             </div>
-
-
-
 
                             <!-- <div class="table-responsive">
                                 <table id="datatable" class="table table-striped table-bordered" style="white-space: nowrap;">
@@ -167,6 +215,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 <!-- Update User Modal -->
@@ -245,7 +295,13 @@
                     </div>
                     <div class="form-group">
                         <label> Kegunaan</label>
-                        <input id="updateKegunaan" type="text" class="form-control" name="updateKegunaan" readonly  placeholder="Kegunaan" required>
+                        <!-- <input id="updateKegunaan" type="text" class="form-control" name="updateKegunaan" readonly  placeholder="Kegunaan" required> -->
+                        <select class="form-control" id="updateKegunaan" name="updateKegunaan" disabled required>
+                            <option value="" selected>Pilih Kegunaan</option>
+                            <option value="Proteksi Email">Proteksi Email</option>
+                            <option value="Tanda Tangan Digital">Tanda Tangan Digital</option>
+                            <option value="Secure Socket Layer(SSL)">Secure Socket Layer(SSL)</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Berkas KTP</label>
