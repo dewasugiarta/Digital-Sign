@@ -102,6 +102,7 @@
                                     <option value="" selected>Pilih Kegunaan</option>
                                     <option value="Proteksi Email">Proteksi Email</option>
                                     <option value="Tanda Tangan Digital">Tanda Tangan Digital</option>
+                                    <option value="Proteksi Email & Tanda Tangan Digital">Proteksi Email & Tanda Tangan Digital</option>
                                     <option value="Secure Socket Layer(SSL)">Secure Socket Layer(SSL)</option>
                                 </select>
                                 <!-- <input type="text" id="" name="kegunaan" class="form-control" required></input> -->
