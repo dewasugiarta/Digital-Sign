@@ -170,35 +170,8 @@ function show_pengajuan(status){
                 var row = '<h2>KOSONG</h2>'
             }else{
 
-                switch (data[0]['status']) {
-                    case '0':
-                        data[0].nameStatus = 'Baru'
-                        break;
-                    case '1':
-                        data[0].nameStatus = 'Revisi'
-                        break;
-                    case '2':
-                        data[0].nameStatus = 'Proses Revisi'
-                        break;
-                    case '3':
-                        data[0].nameStatus = 'Diterima'
-                        break;
-                    default:
-                    data[0].nameStatus = ''
-                    break;
-
-                }
-
-                if(data[0]['status'] == 3){
-                    data[0].disable = 'disabled'
-                }else{
-                    data[0].disable = ''
-                }
-                if(data[0]['status'] != 1){
-                    data[0].display = 'none'
-                }else{
-                    data[0].display = ''
-                }
+                var nameStatus = ['baru','revisi','proses revisi','diterima'];
+                
                 row = data.map(item=>{
                 return (
                     `
@@ -207,16 +180,16 @@ function show_pengajuan(status){
                             <td>${item.nip}</td>
                             <td>${item.nama_opd}</td>
                             <td>${item.tanggal}</td>
-                            <td>${item.nameStatus}
-                                  <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Keterangan Revisi" style="display:${item.display}" onclick="getKeterangan(${item.id})">
+                            <td>${nameStatus[data[0]['status']]}
+                                  <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Keterangan Revisi" style="display:${data[0]['status']==1?'':'none'}" onclick="getKeterangan(${item.id})">
                                     <i class="fa fa-info"></i>
                                   </button>
                               </td>
                               <td>
-                              <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Edit Data" onclick="getDetailUser(${item.id})" ${item.disable}>
+                              <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Edit Data" onclick="getDetailUser(${item.id})" ${data[0]['status']==3?'disabled':''}>
                                 <i class="fa fa-edit"></i>
                               </button>
-                              <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus Data" onclick="deletePenerbitan('${item.id}','${item.nama}')" ${item.disable}>
+                              <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus Data" onclick="deletePenerbitan('${item.id}','${item.nama}')" ${data[0]['status']==3?'disabled':''}>
                                 <i class="fa fa-times"></i>
                               </button>
                               </td>
