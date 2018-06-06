@@ -19,7 +19,7 @@ function getDetailUser(id){
         $('select[name=updateOPD').val(data.id_opd).prop('disabled', true);
         $('input[name=updateEmail]').val(data.email).prop('readonly',true);
         $('input[name=updateSistem]').val(data.sistem).prop('readonly',true);
-        $('input[name=updateKegunaan]').val(data.kegunaan).prop('readonly',true);
+        $('select[name=updateKegunaan]').val(data.kegunaan).prop('disabled',true);
         $("#previewKTP").attr("href", data.ktp)
         $("#previewSurat").attr("data-id", data.id).attr("data-nip", data.nip).attr("data-get","surat");
         $("#previewKTP").attr("data-id", data.id).attr("data-nip", data.nip).attr("data-get","ktp");
@@ -45,7 +45,7 @@ function onUpdate(checkboxElem) {
         $('#updateOPD').prop("disabled", false);
         $('#updateEmail').prop('readonly', false);
         $('#updateSistem').prop('readonly', false);
-        $('#updateKegunaan').prop('readonly', false);
+        $('#updateKegunaan').prop("disabled", false);
         $('#updateKTP').show();
         $('#updateSurat').show();
         $('#btnUpdate').show();
@@ -60,7 +60,7 @@ function onUpdate(checkboxElem) {
         $('#updateOPD').prop("disabled", true);
         $('#updateEmail').prop('readonly', true);
         $('#updateSistem').prop('readonly', true);
-        $('#updateKegunaan').prop('readonly', true);
+        $('#updateKegunaan').prop("disabled", true);
         $('#updateKTP').hide();
         $('#updateSurat').hide();
         $('#btnUpdate').hide();
