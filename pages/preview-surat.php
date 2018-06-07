@@ -11,7 +11,7 @@
         $res = $db->getResult();
 
         $data = $res[0];
-        $src = substr($data['surat'],3);
+        $src = "../".$data['surat'];
     }
 ?>
 
