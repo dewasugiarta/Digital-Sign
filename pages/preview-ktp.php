@@ -11,7 +11,8 @@
         $res = $db->getResult();
 
         $data = $res[0];
-        $src = substr($data['ktp'],3);
+        // $src = substr($data['ktp'],3);
+        $src = "../".$data['ktp'];
     }
 ?>
 
@@ -30,6 +31,7 @@
     
    <?php
         echo '<img src="'.$src.'" alt="ktp" width="auto" height="90%">';
+        
    ?>
 </body>
 </html>
