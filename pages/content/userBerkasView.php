@@ -40,7 +40,7 @@
 <body style="margin:0">
 
     <?php if ($state == 1): ?>
-        <img src="../../<?php echo $url ?>">
+        <img src="../../<?php echo $url ?>" width="auto" height="90%">
     <?php else: ?>
         <object data="../../<?php echo $url ?>"  width="100%" height="100%"> </object>
     <?php endif; ?>
