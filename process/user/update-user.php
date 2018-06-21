@@ -3,7 +3,7 @@ include("../../config/dbConfig.php");
 
     $db = new Database;
     $db->connect();
-    
+
 
     if(isset($_POST['submit'])){
         $nama = validateItem('nama');

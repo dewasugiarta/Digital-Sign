@@ -112,7 +112,8 @@
                                         <th>Unit Kerja</th>
                                         <th>Kegunaan</th>
                                         <th>Sistem</th>
-                                        <th>Aksi</th>
+                                        <th>Tanggal Terbit</th>
+                                    
                                     </tr>
                                   </thead>
 
@@ -120,7 +121,7 @@
                                   <tbody>
                                   <?php
                                     $db->select('pengajuan',
-                                                'pengajuan.id, pengajuan.nama, pengajuan.nip, opd.nama_opd, pengajuan.tanggal, pengajuan.status, pengajuan.kegunaan, pengajuan.sistem',
+                                                'pengajuan.id, pengajuan.nama, pengajuan.nip, opd.nama_opd, pengajuan.tanggal, pengajuan.status, pengajuan.kegunaan, pengajuan.tanggal_terbit, pengajuan.sistem',
                                                 'opd ON pengajuan.id_opd=opd.id_opd','iduser="'.$iduser.'" AND status=4','tanggal DESC');
                                     $res2 = $db->getResult();
                                     if(count($res2)>0){
@@ -132,11 +133,8 @@
                                           <td>'.$pengajuan2['nama_opd'].'</td>
                                           <td>'.$pengajuan2['kegunaan'].'</td>
                                           <td>'.$pengajuan2['sistem'].'</td>
-                                          <td>
-                                          <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus Data" onclick="deletePenerbitan(\''.$pengajuan2['id'].'\',\''.$pengajuan2['nama'].'\')">
-                                            <i class="fa fa-times"></i>
-                                          </button>
-                                          </td>
+                                          <td>'.$pengajuan2['tanggal_terbit'].'</td>
+
                                         </tr>
 
                                         ';
