@@ -52,6 +52,7 @@
                             <li><a data-toggle="tab" href="#m1" onclick="show_pengajuan(1)">Revisi Pengajuan</a></li>
                             <li><a data-toggle="tab" href="#m2" onclick="show_pengajuan(2)">Revisi Masuk</a></li>
                             <li><a data-toggle="tab" href="#m3" onclick="show_pengajuan(3)">Pengajuan Terverifikasi</a></li>
+                            <li><a data-toggle="tab" href="#m4" onclick="show_pengajuan(4)">Pengajuan Terbit</a></li>
                           </ul>
                           <div class="tab-content">
                             <div id="m0" class="tab-pane fade in active">
@@ -112,6 +113,9 @@
                             <div id="m1" class="tab-pane fade in"></div>
                             <div id="m2" class="tab-pane fade in"></div>
                             <div id="m3" class="tab-pane fade in"></div>
+                            <div id="m4" class="tab-pane fade in">
+                                  <h1>hello</h1>
+                            </div>
                            
                           </div>
                         </div>
@@ -184,6 +188,38 @@
                         <input type="hidden" name="status" value="1">
                         <label for="">Tambahkan Pesan untuk User</label>
                         <textarea name="keterangan" cols="30" rows="4" class="form-control" required></textarea>
+                      </div>
+                  
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="submit" name="submit" class="btn btn-success">Simpan</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                  </form>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="modal" id="terbitkan-pengajuan">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Terbitkan Pengajuan</h4>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form action="process/admin/terbitkan-pengajuan.php" id="terbit" method="POST" onsubmit="return terbitkan()">
+                      <div class="form-group">
+                        <input type="hidden" name="id" id="id-terbit">
+                        <label for="tanggal-terbit">Masukkan tanggal terbit</label>
+                        <input type="date" name="tanggal-terbit" required>
                       </div>
                   
                 </div>

@@ -19,14 +19,14 @@ function getDetailPengajuan(id){
         $("#email").html(data.email)
         $("#kegunaan").html(data.kegunaan)
         $("#sistem").html(data.sistem)
-    
+
         $("#ktp").val(data.id)
         $("#surat").val(data.id)
     })
 }
 
 
-function open_ktp(id){ 
+function open_ktp(id){
     window.open('pages/preview-ktp.php?id='+id)
 }
 
@@ -38,7 +38,7 @@ function validasi(id){
     let conf = confirm('Approve Pengajuan Penerbitan?')
     if(conf){
         //update status pengajuan 0 => 3
-    
+
         $.post('./process/admin/update-penerbitan.php',{
             id:id,
             status:3
@@ -70,9 +70,8 @@ function show_pengajuan(status){
         status:status
     }, function(data){
         data = JSON.parse(data)
-        console.log(data)
         
-        let head = `
+        let head = status!=4? `
                         <br>
                         <table id="datatable" class="table table-striped table-bordered">
                         <thead>
@@ -87,43 +86,110 @@ function show_pengajuan(status){
                             </tr>
                         </thead>
                         <tbody>
+                    `:
                     `
+                        <br>
+                        <table id="datatable" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                            <th>Nama User</th>
+                            <th>Nama Pengaju</th>
+                            <th>NIP</th>
+                            <th>Unit Kerja</th>
+                            <th>Sistem</th>
+                            <th>Kegunaan</th>
+                            <th>Tanggal Terbit</th>
+                            <th>Berlaku Sampai</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    `
+
         let foot = ` </tbody>
                      </table>`
         if(data.length<1){
             var row = '<h2>KOSONG</h2>'
         }else{
             row = data.map(item=>{
-            return (
-                `
-                    <tr>
-                        <td>${item.nama_user}</td>
-                        <td>${item.nama}</td>
-                        <td>${item.nip}</td>
-                        <td>${item.nama_opd}</td>
-                        <td>${item.sistem}</td>
-                        <td>${item.kegunaan}</td>
-                        <td>
-                        <button class="btn btn-sm" data-toggle="modal" data-target="#detail-pengajuan" onclick="getDetailPengajuan(${item.id})">
-                            <i class="fa fa-info" data-toggle="tooltip" data-placement="top" title="detail"></i>
-                        </button>
-                        <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Validasi" onclick="validasi(${item.id})">
-                            <i class="fa fa-check"></i>
-                        </button>
-                        <button class="btn btn-sm"  data-toggle="tooltip" data-placement="top" title="Beri Pesan" onclick="getIdKomentar(${item.id})">
-                            <i class="fa fa-comment"></i>
-                        </button>
-                        <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" onclick="deletePengajuan(${item.id})" title="Hapus">
-                            <i class="fa fa-trash"></i>
-                        </button>
-                        </td>
-                    </tr>
-                `
+                if(item.status==1||item.status==2){
+                    return (
+                        `
+                            <tr>
+                                <td>${item.nama_user}</td>
+                                <td>${item.nama}</td>
+                                <td>${item.nip}</td>
+                                <td>${item.nama_opd}</td>
+                                <td>${item.sistem}</td>
+                                <td>${item.kegunaan}</td>
+                                <td>
+                                <button class="btn btn-sm" data-toggle="modal" data-target="#detail-pengajuan" onclick="getDetailPengajuan(${item.id})">
+                                    <i class="fa fa-info" data-toggle="tooltip" data-placement="top" title="detail"></i>
+                                </button>
+                                <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Validasi" onclick="validasi(${item.id})">
+                                    <i class="fa fa-check"></i>
+                                </button>
+                                <button class="btn btn-sm"  data-toggle="tooltip" data-placement="top" title="Beri Pesan" onclick="getIdKomentar(${item.id})">
+                                    <i class="fa fa-comment"></i>
+                                </button>
+                                <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" onclick="deletePengajuan(${item.id})" title="Hapus">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                </td>
+                            </tr>
+                        `
 
-            )
+                    )
+                }else if(item.status==3){
+                    return (
+                        `
+                            <tr>
+                                <td>${item.nama_user}</td>
+                                <td>${item.nama}</td>
+                                <td>${item.nip}</td>
+                                <td>${item.nama_opd}</td>
+                                <td>${item.sistem}</td>
+                                <td>${item.kegunaan}</td>
+                                <td>
+                                <button class="btn btn-sm" data-toggle="modal" data-target="#detail-pengajuan" onclick="getDetailPengajuan(${item.id})">
+                                    <i class="fa fa-info" data-toggle="tooltip" data-placement="top" title="detail"></i>
+                                </button>
+                                <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Validasi" onclick="validasi(${item.id})">
+                                    <i class="fa fa-check"></i>
+                                </button>
+                                <button class="btn btn-sm"  data-toggle="tooltip" data-placement="top" title="Beri Pesan" onclick="getIdKomentar(${item.id})">
+                                    <i class="fa fa-comment"></i>
+                                </button>
+                                <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" onclick="deletePengajuan(${item.id})" title="Hapus">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                <button class="btn btn-sm" data-toggle="modal" data-target="#terbitkan-pengajuan" onclick="getIdTerbit(${item.id})" >
+                                    <i class="fa fa-calendar-check-o" data-toggle="tooltip" data-placement="top" title="Terbitkan"></i>
+                                </button>
+                                </td>
+                            </tr>
+                        `
+
+                    )
+                }else if(item.status==4){
+                    return (
+                        `
+                            <tr>
+                                <td>${item.nama_user}</td>
+                                <td>${item.nama}</td>
+                                <td>${item.nip}</td>
+                                <td>${item.nama_opd}</td>
+                                <td>${item.sistem}</td>
+                                <td>${item.kegunaan}</td>
+                                <td>${parseDate(item.tanggal_terbit)}</td>
+                                <td>${getExpireDate(item.tanggal_terbit)}</td>
+                            </tr>
+                        `
+
+                    )
+                }
         })
     }
-        
+
         let table = head+row+foot
         $("#m"+status).html(table)
     })
@@ -139,7 +205,37 @@ function deletePengajuan(id){
             id:id
         }, function(data){
             data = JSON.parse(data)
-            console.log(data)
         })
     }
+}
+
+
+function terbitkan(){
+    let conf = confirm('Terbitkan pengajuan?');
+    conf ==true?true:false
+}
+
+function getIdTerbit(id){
+    $("#id-terbit").val(id)
+    //open modal after value assign
+    // $("#terbitkan-pengajuan").modal()
+}
+
+function parseDate(tgl){
+    let newTgl = tgl.split('-')
+    let year = newTgl[0]
+    let mon = newTgl[1]
+    let date = newTgl[2]
+
+    return(date+'-'+mon+'-'+year)
+}
+
+function getExpireDate(tgl){
+    newTgl = parseDate(tgl)
+    newTgl = newTgl.split('-')
+    let year = parseInt(newTgl[2])+2
+    let mon = newTgl[1]
+    let date = newTgl[0]
+
+    return(date+'-'+mon+'-'+year)
 }
