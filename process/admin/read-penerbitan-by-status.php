@@ -12,7 +12,7 @@ include("../../config/dbConfig.php");
     $column = 'pengajuan.id,user.nama as nama_user,pengajuan.nama,pengajuan.nip,pengajuan.nik,'.
             'pengajuan.pangkat_golongan,pengajuan.jabatan,pengajuan.instansi,pengajuan.kota,'.
             'pengajuan.provinsi, pengajuan.email,pengajuan.tanggal,pengajuan.ktp,'.
-            'pengajuan.surat,pengajuan.kegunaan,pengajuan.sistem, pengajuan.status, opd.nama_opd';
+            'pengajuan.surat,pengajuan.kegunaan,pengajuan.sistem, pengajuan.status, opd.nama_opd,pengajuan.tanggal_terbit';
 
     
     $db->select('pengajuan',$column,'user on pengajuan.iduser=user.iduser JOIN opd ON pengajuan.id_opd=opd.id_opd','status="'.$status.'"');
