@@ -7,10 +7,10 @@
   $column = 'pengajuan.id,user.nama as nama_user,pengajuan.nama,pengajuan.nip,'.
             'pengajuan.instansi,'.
             'pengajuan.kegunaan,pengajuan.sistem, pengajuan.status, opd.nama_opd';
-  
+
   $db->select('pengajuan',$column,'user on pengajuan.iduser=user.iduser JOIN opd ON pengajuan.id_opd=opd.id_opd','status=0');
   $res = $db->getResult();
- 
+
 ?>
 
 <script type="text/javascript" src="src/js/penerbitan-admin.js"></script>
@@ -48,7 +48,7 @@
 
                           <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#m0">Pengajuan Masuk</a></li>
-                            
+
                             <li><a data-toggle="tab" href="#m1" onclick="show_pengajuan(1)">Revisi Pengajuan</a></li>
                             <li><a data-toggle="tab" href="#m2" onclick="show_pengajuan(2)">Revisi Masuk</a></li>
                             <li><a data-toggle="tab" href="#m3" onclick="show_pengajuan(3)">Pengajuan Terverifikasi</a></li>
@@ -98,25 +98,25 @@
                                           </button>
                                         </td>
                                       </tr>
-                                      
+
                                       ';
                                     }
                                   }else{
                                     echo '<h2>KOSONG</h2>';
                                   }
                                 ?>
-                                    
+
                                 </tbody>
                               </table>
                             </div>
-                            
+
                             <div id="m1" class="tab-pane fade in"></div>
                             <div id="m2" class="tab-pane fade in"></div>
                             <div id="m3" class="tab-pane fade in"></div>
                             <div id="m4" class="tab-pane fade in">
                                   <h1>hello</h1>
                             </div>
-                           
+
                           </div>
                         </div>
                       </div>
@@ -156,7 +156,7 @@
                         <li class="list-group-item" ><label class="lgi-label">Scan KTP</label><button id="ktp" onclick="open_ktp(this.value)" class="btn btn-success"><i class="fa fa-search"></i> Preview </button></li>
                         <li class="list-group-item" ><label class="lgi-label">Surat rekomendasi</label><button id="surat" onclick="open_surat(this.value)" class="btn btn-success"><i class="fa fa-search"></i> Preview</button></li>
                     </ul>
-                  
+
                 </div>
 
                 <!-- Modal footer -->
@@ -189,7 +189,7 @@
                         <label for="">Tambahkan Pesan untuk User</label>
                         <textarea name="keterangan" cols="30" rows="4" class="form-control" required></textarea>
                       </div>
-                  
+
                 </div>
 
                 <!-- Modal footer -->
@@ -221,7 +221,7 @@
                         <label for="tanggal-terbit">Masukkan tanggal terbit</label>
                         <input type="date" name="tanggal-terbit" required>
                       </div>
-                  
+
                 </div>
 
                 <!-- Modal footer -->

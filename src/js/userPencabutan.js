@@ -102,3 +102,6 @@ function batalPencabutan(id_pencabutan, id){
         })
     }
 }
+
+
+    

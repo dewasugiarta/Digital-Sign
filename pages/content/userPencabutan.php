@@ -98,6 +98,7 @@
                                     <th>Kegunaan</th>
                                     <th>Sistem</th>
                                     <th>Tanggal Terbit</th>
+                                    <th>Berlaku Sampai</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -109,6 +110,11 @@
                                 $res2 = $db->getResult();
                                 if(count($res2)>0){
                                     foreach($res2 as $pengajuan2){
+                                        $tglTerbit = (string)$pengajuan2['tanggal_terbit'];
+                                        $tglExp = explode('-',$tglTerbit,2);
+                                        $tglExp[0] += 2;
+                                        $tglExpe = implode("-",$tglExp);
+
                                         echo '
                                             <tr>
                                                 <td>'.$pengajuan2['nama'].'</td>
@@ -116,7 +122,8 @@
                                                 <td>'.$pengajuan2['nama_opd'].'</td>
                                                 <td>'.$pengajuan2['kegunaan'].'</td>
                                                 <td>'.$pengajuan2['sistem'].'</td>
-                                                <td>'.$pengajuan2['tanggal_terbit'].'</td>
+                                                <td>'.$tglTerbit.'</td>
+                                                <td id="$tglExp">'.$tglExpe.'</td>
                                                 <td>
                                                     <button class="btn btn-sm" data-toggle="tooltip" id="btnPencabutan" data-placement="top" title="Pencabutan dan Pembaharuan" onclick="getDetailUser('.$pengajuan2['id'].')">
                                                         <i class="fa fa-minus-square"></i> |
@@ -150,7 +157,7 @@
             <!-- Modal Header -->
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Detail  Pengajuan Penerbitan</h4>
+                <h4 class="modal-title">Form Pengajuan Pencabutan/Perbaharuan</h4>
                 <div>
                 </div>
             </div>
@@ -168,11 +175,21 @@
                     </ul>
                 <form action="process/user/userPencabutanProcess.php" enctype="multipart/form-data" method="post">
                     <div class="form-group">
-                        <input class="pull-right" style="padding:5px;margin-top: 9px;" type="radio" name="pengajuan" value="pembaharuan" required>
-                        <span style="padding: 6px" class="pull-right"><strong>Perbaharuan</strong></span>
-                        <input class="pull-right" style="padding:5px;margin-top: 9px;" type="radio" name="pengajuan" value="pencabutan" required>
-                        <span style="padding: 6px" class="pull-right"><strong>Pencabutan</strong></span>
+                        <input class="pull-left" style="padding:5px;margin-top: 9px;" type="radio" name="pengajuan" value="pembaharuan" required>
+                        <span style="padding: 6px" class="pull-left"><strong>Perbaharuan</strong></span>
+                        <input class="pull-left" style="padding:5px;margin-top: 9px;" type="radio" name="pengajuan" value="pencabutan" required>
+                        <span style="padding: 6px" class="pull-left"><strong>Pencabutan</strong></span>
                         <br>
+                        <div class="form-group">
+                            <br>
+                            <label>Alasan Pencabutan/Pembaharuan</label>
+                            <select id="alasanPencabutan" class="form-control" name="alasan" required>
+                                <option value="" selected>Pilih Alasan Pencabutan / Pembaharuan</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
                             <label>Upload Surat Pembaharuan/Pencabutan</label>
                         <br>
                             <input type="hidden" name="idPengajuan" value="">

@@ -8,6 +8,7 @@
         $iduser = validateUser('idUser');
         $id = validateUser('idPengajuan');
         $pengajuan = validateUser('pengajuan');
+        $alasan = validateUser('alasan');
         $surat = $_FILES['suratPencabutan'];
         $status = '0';
 
@@ -30,7 +31,8 @@
             'iduser'=>$iduser,
             'pengajuan'=>$pengajuan,
             'surat'=>$linkUploadSurat,
-            'status'=>$status
+            'status'=>$status,
+            'alasan'=>$alasan
         ));
         $res = $db->getResult();
 
