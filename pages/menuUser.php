@@ -28,7 +28,7 @@
               <li><a><i class="fa fa-file"></i> Pengajuan<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                   <li><a href="index.php?pageid=userPenerbitan">Penerbitan</a></li>
-                  <li><a href="#">Pencabutan</a></li>
+                  <li><a href="index.php?pageid=userPencabutan">Pencabutan</a></li>
                 </ul>
               </li>
                <li><a><i class="fa fa-file-text"></i> Dokumen<span class="fa fa-chevron-down"></span></a>

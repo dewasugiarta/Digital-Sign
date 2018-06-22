@@ -40,6 +40,8 @@
 							include_once "pages/content/templateSuratDownload.php";
 						}else if($form == 'profile'){
 							include_once "pages/content/userProfile.php";
+						}else if($form == 'userPencabutan'){
+							include_once "pages/content/userPencabutan.php";
 						}else{
 							echo "<meta http-equiv=\"refresh\" content=\"0;URL=index.php?pageid=userDash\">";
 						}

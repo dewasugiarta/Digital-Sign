@@ -19,14 +19,14 @@ function getDetailPengajuan(id){
         $("#email").html(data.email)
         $("#kegunaan").html(data.kegunaan)
         $("#sistem").html(data.sistem)
-    
+
         $("#ktp").val(data.id)
         $("#surat").val(data.id)
     })
 }
 
 
-function open_ktp(id){ 
+function open_ktp(id){
     window.open('pages/preview-ktp.php?id='+id)
 }
 
@@ -38,7 +38,7 @@ function validasi(id){
     let conf = confirm('Approve Pengajuan Penerbitan?')
     if(conf){
         //update status pengajuan 0 => 3
-    
+
         $.post('./process/admin/update-penerbitan.php',{
             id:id,
             status:3
@@ -104,7 +104,7 @@ function show_pengajuan(status){
                         </thead>
                         <tbody>
                     `
-                    
+
         let foot = ` </tbody>
                      </table>`
         if(data.length<1){
@@ -189,7 +189,7 @@ function show_pengajuan(status){
                 }
         })
     }
-        
+
         let table = head+row+foot
         $("#m"+status).html(table)
     })
@@ -227,7 +227,7 @@ function parseDate(tgl){
     let mon = newTgl[1]
     let date = newTgl[2]
 
-    return(date+'-'+mon+'-'+year) 
+    return(date+'-'+mon+'-'+year)
 }
 
 function getExpireDate(tgl){
@@ -236,6 +236,6 @@ function getExpireDate(tgl){
     let year = parseInt(newTgl[2])+2
     let mon = newTgl[1]
     let date = newTgl[0]
-    
+
     return(date+'-'+mon+'-'+year)
 }
