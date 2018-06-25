@@ -41,7 +41,7 @@
                                 <tbody>
                                 <?php
                                     $db->select('pencabutan',
-                                        'pencabutan.id_pencabutan, pencabutan.id, pencabutan.pengajuan, pengajuan.nama, pengajuan.nip, opd.nama_opd, pengajuan.kegunaan, pengajuan.sistem, pencabutan.iduser','pengajuan ON pencabutan.id=pengajuan.id INNER JOIN opd ON pengajuan.id_opd=opd.id_opd','pencabutan.iduser="'.$iduser.'"','tanggal_pengajuan DESC');
+                                        'pencabutan.id_pencabutan, pencabutan.id, pencabutan.pengajuan, pengajuan.nama, pengajuan.nip, opd.nama_opd, pengajuan.kegunaan, pengajuan.sistem, pencabutan.iduser','pengajuan ON pencabutan.id=pengajuan.id INNER JOIN opd ON pengajuan.id_opd=opd.id_opd','pencabutan.iduser="'.$iduser.'" AND pencabutan.status=\'0\'','tanggal_pengajuan DESC');
                                     $res = $db->getResult();
                                     if(count($res)>0){
                                         foreach($res as $pencabutan){
