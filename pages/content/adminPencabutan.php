@@ -19,10 +19,10 @@
                             <h2>List Data Pencabutan/Pembaharuan</h2>
 
                             <div class="clearfix">
-                                    <button class="btn btn-md btn-success add-opd" data-toggle="modal" data-target="#list_data">
+                                    <!-- <button class="btn btn-md btn-success add-opd" data-toggle="modal" data-target="#list_data">
                                         <i class="fa fa-plus"></i>
                                         List Data
-                                    </button>
+                                    </button> -->
                             </div>
                         </div>
                         <div class="x_content">
@@ -41,13 +41,13 @@
                                 <tbody>
                                 <?php
                                     $db->select('pencabutan',
-                                        'pencabutan.id_pencabutan, pencabutan.id, pencabutan.pengajuan, pengajuan.nama, pengajuan.nip, opd.nama_opd, pengajuan.kegunaan, pengajuan.sistem, pencabutan.iduser','pengajuan ON pencabutan.id=pengajuan.id INNER JOIN opd ON pengajuan.id_opd=opd.id_opd', "pencabutan.status=0" ,'tanggal_pengajuan DESC');
+                                        'pencabutan.id_pencabutan, pencabutan.id, pencabutan.pengajuan, pengajuan.nama, pengajuan.nip, opd.nama_opd, pengajuan.kegunaan, pengajuan.sistem, pencabutan.alasan, pencabutan.iduser','pengajuan ON pencabutan.id=pengajuan.id INNER JOIN opd ON pengajuan.id_opd=opd.id_opd', "pencabutan.status=0" ,'tanggal_pengajuan DESC');
                                     $res = $db->getResult();
                                     if(count($res)>0){
                                         foreach($res as $pencabutan){
                                             if($pencabutan['pengajuan']=="pencabutan"){
                                                 $info = '
-                                                    <button class="btn btn-sm" data-toggle="modal" data-target="#modal-alasan" onclick="getAlasan('.$pencabutan['id_pencabutan'].')">
+                                                    <button class="btn btn-sm" data-toggle="modal" data-target="#modal-alasan" onclick="getAlasan('."'".$pencabutan['alasan']."'".')">
                                                         <i class="fa fa-info" data-toggle="tooltip" data-placement="top" title="Alasan Pencabutan"></i>
                                                     </button>
                                                 ';
@@ -63,7 +63,7 @@
                                                     <td>'.$pencabutan['sistem'].'</td>
                                                     <td>'.$pencabutan['pengajuan'].$info.'</td>
                                                     <td>
-                                                        <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Terima" onclick="terima('."'".$pencabutan['pengajuan']."'".' ,'.$pencabutan['id_pencabutan'].','.$pencabutan['nip'].')">
+                                                        <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Terima" onclick="terima('."'".$pencabutan['pengajuan']."'".' ,'.$pencabutan['id_pencabutan'].','."'".$pencabutan['nip']."'".')">
                                                             <i class="fa fa-check"></i>
                                                         </button>
                                                         <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Batalkan" onclick="tolak('.$pencabutan['id_pencabutan'].','.$pencabutan['id'].')">
