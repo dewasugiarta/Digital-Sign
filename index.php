@@ -22,6 +22,8 @@
 							include_once "pages/content/adminUserDashboard.php";
 						}else if($form == 'template_surat'){
 							include_once "pages/content/templateSurat.php";
+						}else if($form == "admPencabutan"){
+							include_once "pages/content/adminPencabutan.php";
 						}else{
 							echo "<meta http-equiv=\"refresh\" content=\"0;URL=index.php?pageid=admDash\">";
 						}
