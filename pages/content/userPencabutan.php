@@ -89,7 +89,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <table id="tableData" class="table table-striped table-bordered">
+                        <table id="tableData" class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>Nama Direkomendasikan</th>
@@ -106,7 +106,7 @@
                             <?php
                                 $db->select('pengajuan',
                                     'pengajuan.id, pengajuan.nama, pengajuan.nip, opd.nama_opd, pengajuan.status, pengajuan.kegunaan, pengajuan.tanggal_terbit, pengajuan.sistem',
-                                    'opd ON pengajuan.id_opd=opd.id_opd','iduser="'.$iduser.'" AND status=4 and status_pencabutan=0 ','tanggal_terbit DESC');
+                                    'opd ON pengajuan.id_opd=opd.id_opd','iduser="'.$iduser.'" AND status=4 and status_pencabutan=0 ','tanggal_terbit ASC');
                                 $res2 = $db->getResult();
                                 if(count($res2)>0){
                                     foreach($res2 as $pengajuan2){
@@ -114,9 +114,8 @@
                                         $tglExp = explode('-',$tglTerbit,2);
                                         $tglExp[0] += 2;
                                         $tglExpe = implode("-",$tglExp);
-
                                         echo '
-                                            <tr>
+                                            <tr '.getExp($tglExpe).'>
                                                 <td>'.$pengajuan2['nama'].'</td>
                                                 <td>'.$pengajuan2['nip'].'</td>
                                                 <td>'.$pengajuan2['nama_opd'].'</td>
@@ -185,9 +184,9 @@
                             <label>Alasan Pencabutan/Pembaharuan</label>
                             <select id="alasanPencabutan" class="form-control" name="alasan" required>
                                 <option value="" selected>Pilih Alasan Pencabutan / Pembaharuan</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
+                                <option value="Tidak Digunakan Lagi">Tidak Digunakan Lagi</option>
+                                <option value="Ingin Mengajukan Baru">Ingin Mengajukan Baru</option>
+
                             </select>
                         </div>
                             <label>Upload Surat Pembaharuan/Pencabutan</label>
@@ -206,3 +205,25 @@
 </div>
 <!-- end modal update -->
 <script type="text/javascript" src="src/js/userPencabutan.js"></script>
+
+<?php
+    function getExp($tglExpe){
+        $dateTime = date('Y-m-d');
+        $tglTmp = explode('-',$dateTime,2);
+        $tglExpeTmp = explode('-',$tglExpe,2);
+
+        if($tglExpeTmp[0] <= $tglTmp[0]){
+            if (($tglExpeTmp[1]-$tglTmp[1]) < 3) {
+                return $alert = 'class="danger"';
+            }else {
+                return $alert = 'class=""';
+            }
+        }else {
+            return $alert = 'class=""';
+        }
+    }
+
+    function getStatus(){
+
+    }
+?>
