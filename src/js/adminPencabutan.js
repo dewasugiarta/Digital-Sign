@@ -4,30 +4,27 @@ function terima(jenis,id, nip){
         $.post('./process/admin/terimaPencabutan.php',{
             jenis,id,nip
         }, function(data){
-            // data = JSON.parse(data)
-            // data = data[0]
-
-            // if(JSON.parse(data)===1){
-            //     alert('Berhasil menghapus!')
-            //     location.reload();
-            // }else{
-            //     alert('Gagal menghapus!')
-            // }
-            // if(data==1){
-            //     alert('Berhasil Diterima')
-            //     location.reload()
-            // }else{
-            //     alert('Gagal Menerima')
-            // }
             location.reload()
         })
     }
 }
 
+function as(x,y,z){
+    console.log(z)
+}
 
-function tolak(x,y){
-    console.log(x)
-    console.log(y)
+function tolak(id_pencabutan){
+    let conf = confirm('Tolak pengajuan?')
+    if(conf){
+        $.post('./process/admin/tolakPencabutan.php',{
+            id_pencabutan
+        }, function(data){
+            if(data==1){
+                alert('Pengajuan ditolak')
+                location.reload()
+            }
+        })
+    }
 }
 
 function getAlasan(x){

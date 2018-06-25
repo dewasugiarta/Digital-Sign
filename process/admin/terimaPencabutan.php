@@ -15,14 +15,17 @@
         else return NULL;
     }
 
-    if($jenis=='pencabutan'){
+    switch($jenis){
+        case 'pencabutan':
         $db->update('pencabutan', array(
             'status'=>1
         ), 'id_pencabutan='.$id);
 
         $res = $db->getResult();
         echo $res[0];
-    }else if($jenis='pengajuan'){
+        break;
+
+        case 'pembaharuan':
         //update status pencabutan
         $db->update('pencabutan', array(
             'status'=>1
@@ -43,17 +46,19 @@
 
             $db->update('pengajuan', array(
                 'surat'=>$surat,
-                'status'=>0
-            ), 'nip='.$nip);
+                'status'=>0,
+                'status_pencabutan'=>0
+            ), 'nip="'.$nip.'"');
 
             $res = $db->getResult();
             echo json_encode($res);
         }
+        break;
+        default: die('Unidentified type of request');
+        break;
 
-
-    }else{
-        die('Unidentified type of request');
     }
+
 
     // // header('Location: ../../index.php?pageid=opd');
     // $db->update('pencabutan', array(
