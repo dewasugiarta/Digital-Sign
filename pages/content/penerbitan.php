@@ -161,7 +161,7 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                  <button type="submit" name="submit" class="btn btn-success">Simpan</button>
+                  <!-- <button type="submit" name="submit" class="btn btn-success">Simpan</button> -->
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
                   </form>
                 </div>

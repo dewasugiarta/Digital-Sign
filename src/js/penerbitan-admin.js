@@ -70,7 +70,7 @@ function show_pengajuan(status){
         status:status
     }, function(data){
         data = JSON.parse(data)
-        
+
         let head = status!=4? `
                         <br>
                         <table id="datatable" class="table table-striped table-bordered">
@@ -153,12 +153,6 @@ function show_pengajuan(status){
                                 <button class="btn btn-sm" data-toggle="modal" data-target="#detail-pengajuan" onclick="getDetailPengajuan(${item.id})">
                                     <i class="fa fa-info" data-toggle="tooltip" data-placement="top" title="detail"></i>
                                 </button>
-                                <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="Validasi" onclick="validasi(${item.id})">
-                                    <i class="fa fa-check"></i>
-                                </button>
-                                <button class="btn btn-sm"  data-toggle="tooltip" data-placement="top" title="Beri Pesan" onclick="getIdKomentar(${item.id})">
-                                    <i class="fa fa-comment"></i>
-                                </button>
                                 <button class="btn btn-sm" data-toggle="tooltip" data-placement="top" onclick="deletePengajuan(${item.id})" title="Hapus">
                                     <i class="fa fa-trash"></i>
                                 </button>
@@ -205,6 +199,12 @@ function deletePengajuan(id){
             id:id
         }, function(data){
             data = JSON.parse(data)
+            if(JSON.parse(data)===1){
+                alert('Berhasil menghapus!')
+                location.reload();
+            }else{
+                alert('Gagal menghapus!')
+            }
         })
     }
 }
